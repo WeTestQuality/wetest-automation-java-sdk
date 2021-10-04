@@ -7,9 +7,12 @@ import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.test.models.CancelTestRequest;
 import com.cloudtestapi.test.models.CompatibilityTest;
 import com.cloudtestapi.test.models.FunctionalTest;
+import com.cloudtestapi.test.models.GetTestDevicesRequest;
+import com.cloudtestapi.test.models.GetTestDevicesResponse;
 import com.cloudtestapi.test.models.StartCompatibilityTestRequest;
 import com.cloudtestapi.test.models.StartFunctionalTestRequest;
 import com.cloudtestapi.test.models.StartTestResponse;
+import com.cloudtestapi.test.models.TestDevice;
 import com.cloudtestapi.test.models.TestInfo;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -86,4 +89,34 @@ public class TestClient extends AbstractClient {
         request.setTestId(testId);
         this.internalRequest(request);
     }
+
+    /**
+     * 获取测试设备
+     * @param testId 测试ID
+     * @param log 是否要日志
+     * @param image 是否要图片
+     * @param error 是否要错误
+     * @return TestDevice[] 设备信息数组
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public TestDevice[] getTestDevices(Long testId, boolean log, boolean image, boolean error) throws CloudTestSDKException{
+        GetTestDevicesRequest request = new GetTestDevicesRequest();
+        request.setTestId(testId);
+        request.setLog(log);
+        request.setImage(image);
+        request.setError(error);
+        GetTestDevicesResponse rsp = null;
+        String rspStr = "";
+        try{
+            Type type = new TypeToken<GetTestDevicesResponse>(){}.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        }catch (JsonSyntaxException e){
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.devices;
+
+    }
+
+
 }
