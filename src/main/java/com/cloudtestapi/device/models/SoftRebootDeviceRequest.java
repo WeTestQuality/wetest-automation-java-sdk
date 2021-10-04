@@ -5,12 +5,11 @@ import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class GetDevicesByCloudIdRequest extends AbstractRequestWithoutBodyAdapter {
-    private Integer cloudId;
-
-    public GetDevicesByCloudIdRequest(){
-        this.setHttpMethod(HttpProfile.REQ_GET);
-        this.withApiInfo("v1", "/clouds/:cloud_id/devices");
+public class SoftRebootDeviceRequest extends AbstractRequestWithoutBodyAdapter {
+    private Integer deviceId;
+    public SoftRebootDeviceRequest(){
+        this.setHttpMethod(HttpProfile.REQ_PUT);
+        this.withApiInfo("v1", "/devices/:device_id");
     }
 
     @Override
@@ -20,14 +19,14 @@ public class GetDevicesByCloudIdRequest extends AbstractRequestWithoutBodyAdapte
 
     @Override
     protected void toPathParamMap(HashMap<String, String> map, String prefix) {
-        map.put(":cloud_id", cloudId.toString());
+        map.put(":device_id", deviceId.toString());
     }
 
-    public Integer getCloudId() {
-        return cloudId;
+    public Integer getDeviceId() {
+        return deviceId;
     }
 
-    public void setCloudId(Integer cloudId) {
-        this.cloudId = cloudId;
+    public void setDeviceId(Integer deviceId) {
+        this.deviceId = deviceId;
     }
 }

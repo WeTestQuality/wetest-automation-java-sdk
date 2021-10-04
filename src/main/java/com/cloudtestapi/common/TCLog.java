@@ -31,15 +31,11 @@ class TCLog implements Interceptor {
     }
 
     public void info(final String str) {
-        if (debug) {
             logger.info(str);
-        }
     }
 
     public void info(final String str, final Throwable t) {
-        if (debug) {
             logger.info(str, t);
-        }
     }
 
 

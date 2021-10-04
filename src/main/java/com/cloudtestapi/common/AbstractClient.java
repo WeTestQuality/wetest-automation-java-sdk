@@ -65,11 +65,6 @@ public class AbstractClient {
     }
 
     private String parseErrorFromResponse(Response okRsp) throws CloudTestSDKException {
-        if (okRsp.code() != AbstractClient.HTTP_RSP_OK) {
-            String msg = "response code is " + okRsp.code() + ", not 200";
-            log.info(msg);
-            throw new CloudTestSDKException(msg);
-        }
         String respBody;
         try {
             respBody = okRsp.body().string();
@@ -79,6 +74,14 @@ public class AbstractClient {
             log.info(msg);
             throw new CloudTestSDKException(msg);
         }
+
+        if (okRsp.code() != AbstractClient.HTTP_RSP_OK) {
+            String msg = "response code is " + okRsp.code() + ", not 200";
+            log.info(msg);
+            log.info("resp body:" + respBody);
+            throw new CloudTestSDKException(msg);
+        }
+
 
         JsonResponseErrModel errResp;
         try {
@@ -139,16 +142,20 @@ public class AbstractClient {
                 this.profile.getHttpProfile().getProtocol() + this.getRootDomain() + "/"
                         + this.profile.getHttpProfile().getToolPath() + "/"
                         + request.getVersion() + path + "?" + queryStr;
-        String jsonStr;
+        String jsonStr = request.toJsonBody();
         switch (reqMethod) {
             case HttpProfile.REQ_GET:
                 return conn.getRequest(url);
             case HttpProfile.REQ_POST:
                 // request object to json str
-                jsonStr = gson.toJson(request);
+                if (jsonStr.equals("")) {
+                    jsonStr = gson.toJson(request);
+                }
                 return conn.postRequest(url, jsonStr);
             case HttpProfile.REQ_PUT:
-                jsonStr = gson.toJson(request);
+                if (jsonStr.equals("")) {
+                    jsonStr = gson.toJson(request);
+                }
                 return conn.putRequest(url, jsonStr);
             case HttpProfile.REQ_DELETE:
                 return conn.deleteRequest(url);

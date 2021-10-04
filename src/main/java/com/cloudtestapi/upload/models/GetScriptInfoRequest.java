@@ -1,11 +1,12 @@
 package com.cloudtestapi.upload.models;
 
 import com.cloudtestapi.common.AbstractRequest;
+import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 import org.omg.PortableInterceptor.Interceptor;
 
-public class GetScriptInfoRequest extends AbstractRequest {
+public class GetScriptInfoRequest extends AbstractRequestWithoutBodyAdapter {
     private Integer scriptId;
 
     public GetScriptInfoRequest(){

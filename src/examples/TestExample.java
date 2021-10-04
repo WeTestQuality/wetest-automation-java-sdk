@@ -3,15 +3,12 @@ import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.common.profile.HttpProfile;
-import com.cloudtestapi.device.models.DeviceBasicInfo;
-import com.cloudtestapi.device.models.GetDeviceStateRequest;
-import com.cloudtestapi.device.models.GetDevicesByCloudIdRequest;
-import com.cloudtestapi.device.models.GetDevicesResponse;
-import org.junit.jupiter.api.Assertions;
+import com.cloudtestapi.test.models.CompatibilityTest;
+import com.cloudtestapi.test.models.TestInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class DeviceExample {
+public class TestExample {
     private CTClient client;
 
     @BeforeEach
@@ -33,20 +30,28 @@ public class DeviceExample {
     }
 
     @Test
-    void test_get_devices_by_cloud_id() throws CloudTestSDKException{
-        GetDevicesByCloudIdRequest request = new GetDevicesByCloudIdRequest();
-        Assertions.assertDoesNotThrow( () -> {
-            GetDevicesResponse response = this.client.device.getDevicesByCloudId(1);
-            System.out.println(this.client.gson.toJson(response));
-        });
+    void test_start_compatibility_test() throws CloudTestSDKException{
+        CompatibilityTest test = new CompatibilityTest();
+        test.setAccount(new String[][]{new String[]{"n1", "p1"}});
+        test.setAppId(384);
+        test.setCloudIds(new int[]{1});
+        test.setDeviceNumber(0);
+        test.setDevices(new int[]{6});
+        test.setExtraScripts(null);
+        test.setExtraInfo("fail");
+        test.setFrameType("wechat_init");
+        test.setHasVideo(false);
+        test.setLogin("customized");
+        test.setMaxTestRunTime(600);
+        test.setPreinstallApps(null);
+        test.setScriptId(1420);
+        test.setMaxDeviceRunTime(600);
+        TestInfo testInfo = this.client.test.startCompatibilityTest(test);
+        System.out.println(this.client.gson.toJson(testInfo));
     }
 
     @Test
-    void test_get_device_state() throws CloudTestSDKException{
-        Assertions.assertDoesNotThrow( () -> {
-            DeviceBasicInfo deviceInfo = this.client.device.getDeviceState(6, 1);
-            System.out.println(this.client.gson.toJson(deviceInfo));
-        });
+    void test_cancel_test() throws CloudTestSDKException{
+        this.client.test.cancelTest(2021100400171951L);
     }
-
 }

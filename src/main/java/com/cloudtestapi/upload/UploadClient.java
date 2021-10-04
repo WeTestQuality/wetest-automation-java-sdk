@@ -14,6 +14,7 @@ import com.cloudtestapi.upload.models.Script;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import org.omg.PortableInterceptor.Interceptor;
 
 public class UploadClient extends AbstractClient {
     public UploadClient(Credential credential) {
@@ -30,7 +31,7 @@ public class UploadClient extends AbstractClient {
      * @return App
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public App getAppInfo(GetAppInfoRequest request) throws CloudTestSDKException {
+    private App getAppInfo(GetAppInfoRequest request) throws CloudTestSDKException {
         GetAppInfoResponse rsp = null;
         String rspStr = "";
         try {
@@ -45,12 +46,24 @@ public class UploadClient extends AbstractClient {
     }
 
     /**
+     * 获取App信息
+     * @param appId int
+     * @return App
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public App getAppInfo(int appId) throws CloudTestSDKException{
+        GetAppInfoRequest request = new GetAppInfoRequest();
+        request.setAppId(appId);
+        return this.getAppInfo(request);
+    }
+
+    /**
      * 获取script信息
      * @param request GetScriptInfoRequest
      * @return Script
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public Script getScriptInfo(GetScriptInfoRequest request) throws CloudTestSDKException{
+    private Script getScriptInfo(GetScriptInfoRequest request) throws CloudTestSDKException{
         GetScriptInfoResponse rsp = null;
         String rspStr = "";
         try{
@@ -61,6 +74,18 @@ public class UploadClient extends AbstractClient {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.script;
+    }
+
+    /**
+     * 获取script信息
+     * @param scriptId  int
+     * @return Script
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public Script getScriptInfo(int scriptId) throws CloudTestSDKException{
+        GetScriptInfoRequest request = new GetScriptInfoRequest();
+        request.setScriptId(scriptId);
+        return this.getScriptInfo(request);
     }
 
 }

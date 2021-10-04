@@ -1,9 +1,10 @@
 package com.cloudtestapi.upload.models;
 
 import com.cloudtestapi.common.AbstractRequest;
+import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
 import java.util.HashMap;
 
-public class UploadApkRequest extends AbstractRequest {
+public class UploadApkRequest extends AbstractRequestWithoutBodyAdapter {
 
 
     @Override

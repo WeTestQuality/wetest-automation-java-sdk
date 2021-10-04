@@ -35,20 +35,16 @@ public class UploadExample{
 
     @Test
     void test_get_app_info(){
-        GetAppInfoRequest request = new GetAppInfoRequest();
-        request.setAppId(382);
         Assertions.assertDoesNotThrow(() -> {
-            App app = this.client.upload.getAppInfo(request);
+            App app = this.client.upload.getAppInfo(384);
             System.out.println(this.client.gson.toJson(app));
         });
     }
 
     @Test
     void test_get_script_info(){
-        GetScriptInfoRequest request = new GetScriptInfoRequest();
-        request.setScriptId(1420);
         Assertions.assertDoesNotThrow(() -> {
-            Script script = this.client.upload.getScriptInfo(request);
+            Script script = this.client.upload.getScriptInfo(1420);
             System.out.println(this.client.gson.toJson(script));
         });
     }
