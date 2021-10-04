@@ -1,0 +1,9 @@
+package com.cloudtestapi.upload.models;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class GetScriptInfoResponse {
+    @Expose
+    public Script script;
+}
