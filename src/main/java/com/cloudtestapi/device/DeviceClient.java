@@ -2,6 +2,7 @@ package com.cloudtestapi.device;
 
 import com.cloudtestapi.common.AbstractClient;
 import com.cloudtestapi.common.Credential;
+import com.cloudtestapi.common.JsonResponseModel;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.device.models.DeviceBasicInfo;
@@ -9,11 +10,14 @@ import com.cloudtestapi.device.models.GetDeviceStateRequest;
 import com.cloudtestapi.device.models.GetDeviceStateResponse;
 import com.cloudtestapi.device.models.GetDevicesByCloudIdRequest;
 import com.cloudtestapi.device.models.GetDevicesResponse;
+import com.cloudtestapi.device.models.GetModelListRequest;
+import com.cloudtestapi.device.models.ModelList;
 import com.cloudtestapi.device.models.ReportDeviceOfflineRequest;
 import com.cloudtestapi.device.models.SoftRebootDeviceRequest;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import javax.jws.WebParam.Mode;
 import org.omg.PortableInterceptor.Interceptor;
 
 
@@ -100,7 +104,7 @@ public class DeviceClient extends AbstractClient {
     }
 
     /**
-     * 软重启涉笔
+     * 软重启设备
      * @param request SoftRebootDeviceRequest
      * @throws CloudTestSDKException CloudTestSDKException
      */
@@ -108,5 +112,23 @@ public class DeviceClient extends AbstractClient {
         this.internalRequest(request);
     }
 
+    /**
+     * 获取设备机型列表
+     * @return ModelList 机型列表
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public ModelList getModelList() throws CloudTestSDKException{
+        JsonResponseModel<ModelList> rsp = null;
+        String rspStr = "";
+        try{
+            GetModelListRequest request = new GetModelListRequest();
+            Type type = new TypeToken<JsonResponseModel<ModelList>>(){}.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        }catch (JsonSyntaxException e){
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.data;
+    }
 
 }

@@ -51,7 +51,6 @@ public class AbstractClient {
     protected String internalRequest(AbstractRequest request)
             throws CloudTestSDKException {
         Response okRsp;
-        String domain = this.getRootDomain();
         String sm = this.profile.getSignMethod();
 
         if (sm.equals(ClientProfile.SIGN_SHA1) || sm.equals(ClientProfile.SIGN_SHA256)) {
@@ -142,6 +141,12 @@ public class AbstractClient {
                 this.profile.getHttpProfile().getProtocol() + this.getRootDomain() + "/"
                         + this.profile.getHttpProfile().getToolPath() + "/"
                         + request.getVersion() + path + "?" + queryStr;
+        if (request instanceof AbstractUploadRequest){
+            AbstractUploadRequest uploadRequest = (AbstractUploadRequest) request;
+            return conn.postFormRequest(url, uploadRequest.getBody(),  uploadRequest.getFieldName(),
+                    uploadRequest.getFileName(), uploadRequest.getFileMime());
+        }
+
         String jsonStr = request.toJsonBody();
         switch (reqMethod) {
             case HttpProfile.REQ_GET:
@@ -160,7 +165,7 @@ public class AbstractClient {
             case HttpProfile.REQ_DELETE:
                 return conn.deleteRequest(url);
             default:
-                throw new CloudTestSDKException("Method only support (GET, POST, PUT)");
+                throw new CloudTestSDKException("Method only support (GET, POST, PUT, DELETE)");
         }
     }
 

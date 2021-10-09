@@ -5,8 +5,6 @@ import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.common.profile.HttpProfile;
 import com.cloudtestapi.upload.models.App;
-import com.cloudtestapi.upload.models.GetAppInfoRequest;
-import com.cloudtestapi.upload.models.GetScriptInfoRequest;
 import com.cloudtestapi.upload.models.Script;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,5 +46,81 @@ public class UploadExample{
             System.out.println(this.client.gson.toJson(script));
         });
     }
+
+    @Test
+    void test_upload_apk(){
+        Assertions.assertDoesNotThrow(() -> {
+            App app = this.client.upload.multiPartUploadApk("C:\\Users\\dafenghuang\\Downloads\\com.taotao.tuoping_1.5_7.apk");
+            System.out.println(this.client.gson.toJson(app));
+        });
+    }
+
+    @Test
+    void test_upload_ipa(){
+        Assertions.assertDoesNotThrow(() -> {
+            App app = this.client.upload.multiPartUploadIpa("C:\\Users\\dafenghuang\\Downloads\\test.ipa");
+            System.out.println(this.client.gson.toJson(app));
+        });
+    }
+
+    @Test
+    void test_upload_script(){
+        Assertions.assertDoesNotThrow(() -> {
+            Script script = this.client.upload.multiPartUploadScript("C:\\Users\\dafenghuang\\Downloads\\demo.zip");
+            System.out.println(this.client.gson.toJson(script));
+        });
+    }
+
+//    @Test
+//    void test_get_upload_id(){
+//        Assertions.assertDoesNotThrow(() ->{
+//            UploadInfo uploadInfo = this.client.upload.getUploadInfo(
+//                    "C:\\Users\\dafenghuang\\Downloads\\com.taotao.tuoping_1.5_7.apk", "android");
+//            System.out.println(this.client.gson.toJson(uploadInfo));
+//        });
+//    }
+
+
+//    @Test
+//    void test_upload_chunk(){
+//        Assertions.assertDoesNotThrow( () ->{
+//            UploadInfo uploadInfo = this.client.upload.getUploadInfo(
+//                    "C:\\Users\\dafenghuang\\Downloads\\com.taotao.tuoping_1.5_7.apk", "android");
+//            System.out.println(this.client.gson.toJson(uploadInfo));
+//
+//            this.client.upload.uploadChunk("C:\\Users\\dafenghuang\\Downloads\\com.taotao.tuoping_1.5_7.apk",
+//                    uploadInfo);
+//        });
+//    }
+
+//    @Test
+//    void test_dump_apk(){
+//        Assertions.assertDoesNotThrow( () -> {
+//            UploadInfo uploadInfo = this.client.upload.getUploadInfo(
+//                    "C:\\Users\\dafenghuang\\Downloads\\com.taotao.tuoping_1.5_7.apk", "android");
+//            System.out.println(this.client.gson.toJson(uploadInfo));
+//
+//            this.client.upload.uploadChunk("C:\\Users\\dafenghuang\\Downloads\\com.taotao.tuoping_1.5_7.apk",
+//                    uploadInfo);
+//
+//            App app = this.client.upload.dumpApk("C:\\Users\\dafenghuang\\Downloads\\com.taotao.tuoping_1.5_7.apk", uploadInfo);
+//            System.out.println(this.client.gson.toJson(app));
+//        });
+//    }
+
+//    @Test
+//    void test_dump_ipa(){
+//        Assertions.assertDoesNotThrow( () -> {
+//            UploadInfo uploadInfo = this.client.upload.getUploadInfo(
+//                    "C:\\Users\\dafenghuang\\Downloads\\test.ipa", "ios");
+//            System.out.println(this.client.gson.toJson(uploadInfo));
+//
+//            this.client.upload.uploadChunk("C:\\Users\\dafenghuang\\Downloads\\test.ipa",
+//                    uploadInfo);
+//
+//            App app = this.client.upload.dumpIPA("C:\\Users\\dafenghuang\\Downloads\\test.ipa", uploadInfo);
+//            System.out.println(this.client.gson.toJson(app));
+//        });
+//    }
 
 }

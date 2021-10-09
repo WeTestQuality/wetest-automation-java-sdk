@@ -1,5 +1,6 @@
 package com.cloudtestapi;
 
+import com.cloudtestapi.account.AccountClient;
 import com.cloudtestapi.common.AbstractClient;
 import com.cloudtestapi.common.AbstractRequest;
 import com.cloudtestapi.common.Credential;
@@ -16,6 +17,8 @@ public class CTClient extends AbstractClient {
 
     public TestClient test;
 
+    public AccountClient account;
+
     public CTClient(Credential credential) throws CloudTestSDKException{
         this(credential, new ClientProfile());
     }
@@ -25,6 +28,7 @@ public class CTClient extends AbstractClient {
         this.upload = new UploadClient(credential, clientProfile);
         this.device = new DeviceClient(credential, clientProfile);
         this.test = new TestClient(credential, clientProfile);
+        this.account = new AccountClient(credential, clientProfile);
         this.checkCredential(credential);
     }
 

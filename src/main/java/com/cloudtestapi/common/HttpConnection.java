@@ -8,6 +8,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.squareup.okhttp.MultipartBuilder;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import java.io.IOException;
 import java.net.Proxy;
@@ -102,6 +103,25 @@ public class HttpConnection {
                             .headers(headers)
                             .build();
         } catch (IllegalArgumentException e) {
+            throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
+        }
+
+        return this.doRequest(request);
+    }
+
+    public Response postFormRequest(String url, byte[] body, String fieldName,
+            String fileName, String fileMime) throws CloudTestSDKException {
+        Request request;
+        try {
+            RequestBody requestBody = new MultipartBuilder().type(MultipartBuilder.FORM)
+                    .addFormDataPart(fieldName, fileName,
+                            RequestBody.create(MediaType.parse(fileMime), body)).build();
+            request =
+                    new Request.Builder()
+                            .url(url)
+                            .post(requestBody)
+                            .build();
+        }catch (IllegalArgumentException e){
             throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
         }
 
