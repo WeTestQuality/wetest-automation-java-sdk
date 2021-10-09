@@ -50,7 +50,7 @@ public class DeviceExample {
     @Test
     void test_get_model_list() throws CloudTestSDKException{
         Assertions.assertDoesNotThrow(() -> {
-            ModelList modelList = this.client.device.getModelList();
+            ModelList[] modelList = this.client.device.getModelList();
             System.out.println(this.client.gson.toJson(modelList));
         });
     }
