@@ -117,11 +117,12 @@ public class DeviceClient extends AbstractClient {
      * @return ModelList 机型列表
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public ModelList[] getModelList() throws CloudTestSDKException{
+    public ModelList[] getModelList(String projectId) throws CloudTestSDKException{
         JsonResponseModel<ModelList[]> rsp = null;
         String rspStr = "";
         try{
             GetModelListRequest request = new GetModelListRequest();
+            request.setProjectId(projectId);
             Type type = new TypeToken<JsonResponseModel<ModelList[]>>(){}.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);

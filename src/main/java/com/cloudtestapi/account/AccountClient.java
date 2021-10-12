@@ -7,7 +7,6 @@ import com.cloudtestapi.common.AbstractClient;
 import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
-import com.cloudtestapi.device.models.GetDeviceStateResponse;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
