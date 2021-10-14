@@ -4,11 +4,13 @@ import com.cloudtestapi.common.AbstractClient;
 import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
+import com.cloudtestapi.test.models.AutomationTest;
 import com.cloudtestapi.test.models.CancelTestRequest;
 import com.cloudtestapi.test.models.CompatibilityTest;
 import com.cloudtestapi.test.models.FunctionalTest;
 import com.cloudtestapi.test.models.GetTestDevicesRequest;
 import com.cloudtestapi.test.models.GetTestDevicesResponse;
+import com.cloudtestapi.test.models.StartAutomationTestRequest;
 import com.cloudtestapi.test.models.StartCompatibilityTestRequest;
 import com.cloudtestapi.test.models.StartFunctionalTestRequest;
 import com.cloudtestapi.test.models.StartTestResponse;
@@ -25,6 +27,27 @@ public class TestClient extends AbstractClient {
 
     public TestClient(Credential credential, ClientProfile clientProfile) {
         super(credential, clientProfile);
+    }
+
+    /**
+     * 开启自动化测试
+     * @param test 自动化测试参数
+     * @return TestInfo
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public TestInfo startAutomationTest(AutomationTest test) throws CloudTestSDKException{
+        StartTestResponse rsp = null;
+        String rspStr = "";
+        StartAutomationTestRequest request = new StartAutomationTestRequest();
+        request.setTest(test);
+        try{
+            Type type = new TypeToken<StartTestResponse>(){}.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        }catch (JsonSyntaxException e){
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.testInfo;
     }
 
     /**

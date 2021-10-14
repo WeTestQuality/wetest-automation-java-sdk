@@ -4,6 +4,6 @@ public abstract class AbstractRequestWithoutBodyAdapter extends AbstractRequest 
 
     @Override
     protected String toJsonBody() {
-        return "";
+        return null;
     }
 }

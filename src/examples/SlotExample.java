@@ -64,8 +64,8 @@ public class SlotExample {
     @Test
     void test_resign_ipa(){
         Assertions.assertDoesNotThrow(() -> {
-            String fileId = this.client.slot.resignIpa("42.194.235.34:20001",
-                    "https://pre.files.wetest.qq.com/files/wetest-file/10b418c82cec42acb8983829f8696c49.ipa?nonce=1026489623&t=1633936568&token=378e31a6b7f147c56071e3d6db3eda7d79e8c972cca7d12b1b9e0c05a894110d&zone_id=1");
+            String fileId = this.client.slot.resignIpa("119.29.118.154:20004",
+                    "https://files.wetest.qq.com/files/wetest-file/b877c7c315ec4d4bb0df41d0c017238a.ipa?nonce=3530759385&t=1634109139&token=4b951fdd6845290157e455f835bfa3cb8434859edfeb8e988ed51af140feff0d&zone_id=1");
             System.out.println(fileId);
         });
     }
@@ -73,7 +73,7 @@ public class SlotExample {
     @Test
     void test_fetch_resign_result(){
         Assertions.assertDoesNotThrow(() -> {
-            ResignResult result = this.client.slot.fetchResignResult("42.194.235.34:20001", "20211012154644-c5ijqp30ii9acork5kfg");
+            ResignResult result = this.client.slot.fetchResignResult("119.29.118.154:20004", "20211013161542-c5j9bbjum956gta7e9o0");
             System.out.println(this.client.gson.toJson(result));
         });
     }

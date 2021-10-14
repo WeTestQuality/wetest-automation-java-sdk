@@ -29,6 +29,20 @@ class TCLog implements Interceptor {
         this.debug = isDebug;
         this.gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
+    
+    public TCLog(Log logger, boolean isDebug){
+        this.logger = logger;
+        this.debug = isDebug;
+        this.gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+    }
+
+    public void setLogger(Log logger) {
+        this.logger = logger;
+    }
+    
+    public Log getLogger(){
+        return this.logger;
+    }
 
     public void info(final String str) {
             logger.info(str);
@@ -38,22 +52,20 @@ class TCLog implements Interceptor {
             logger.info(str, t);
     }
 
-
-
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (debug){
-            this.info("send request, request url: " + request.urlString());
-            this.info("request header: " + request.headers().toString());
-            this.info("request body: " + gson.toJson(request.body()));
+            this.logger.info("send request, request url: " + request.urlString());
+            this.logger.info("request header: " + request.headers().toString());
+            this.logger.info("request body: " + gson.toJson(request.body()));
         }
 
         Response response = chain.proceed(request);
 
         if (debug){
-            this.info("response header:" + response.headers().toString());
-            this.info("response body:" + response.body().string());
+            this.logger.info("response header:" + response.headers().toString());
+            this.logger.info("response body:" + response.body().string());
         }
 
         return response;

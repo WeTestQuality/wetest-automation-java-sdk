@@ -24,6 +24,7 @@ import java.util.Random;
 import java.util.TreeMap;
 import javax.crypto.Mac;
 import javax.net.ssl.SSLContext;
+import org.apache.commons.logging.Log;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
@@ -70,7 +71,7 @@ public class AbstractClient {
         } catch (IOException e) {
             String msg = "Cannot transfer response body to string, because Content-Length is too large, "
                     + "or Content-Length and stream length disagree.";
-            log.info(msg);
+            log.getLogger().info(msg);
             throw new CloudTestSDKException(msg);
         }
 
@@ -153,12 +154,12 @@ public class AbstractClient {
                 return conn.getRequest(url);
             case HttpProfile.REQ_POST:
                 // request object to json str
-                if (jsonStr.equals("")) {
+                if (jsonStr==null) {
                     jsonStr = gson.toJson(request);
                 }
                 return conn.postRequest(url, jsonStr);
             case HttpProfile.REQ_PUT:
-                if (jsonStr.equals("")) {
+                if (jsonStr==null) {
                     jsonStr = gson.toJson(request);
                 }
                 return conn.putRequest(url, jsonStr);
@@ -264,12 +265,12 @@ public class AbstractClient {
         }
     }
 
-    public void setLog(TCLog log) {
-        this.log = log;
+    public void setLogger(Log logger){
+        this.log.setLogger(logger);
     }
 
-    public TCLog getLog() {
-        return log;
+    public Log getLogger() {
+        return log.getLogger();
     }
 
     public void setClientProfile(ClientProfile profile) {
