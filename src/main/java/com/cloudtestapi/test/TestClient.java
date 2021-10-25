@@ -142,7 +142,7 @@ public class TestClient extends AbstractClient {
         GetTestStatusResponse rsp = null;
         String rspStr = "";
         try{
-            Type type = new TypeToken<GetTestDevicesResponse>(){}.getType();
+            Type type = new TypeToken<GetTestStatusResponse>(){}.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
         }catch (JsonSyntaxException e){
