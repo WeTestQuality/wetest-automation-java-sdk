@@ -15,4 +15,10 @@ public class TestStatus {
     @Expose
     public boolean finished;
 
+    @Expose
+    public String status;
+
+    @Expose
+    @SerializedName("status_code")
+    public int statusCode;
 }
