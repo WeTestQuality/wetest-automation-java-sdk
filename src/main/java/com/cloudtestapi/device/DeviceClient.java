@@ -30,7 +30,6 @@ public class DeviceClient extends AbstractClient {
         super(credential, clientProfile);
     }
 
-
     private GetDevicesResponse getDevicesByCloudId(GetDevicesByCloudIdRequest request) throws CloudTestSDKException {
         GetDevicesResponse rsp = null;
         String rspStr = "";
@@ -46,7 +45,7 @@ public class DeviceClient extends AbstractClient {
 
 
     /**
-     * 通过云ID拉取设备列表
+     * Get device list by cloud id
      * @param cloudId int
      * @return GetDevicesResponse
      * @throws CloudTestSDKException CloudTestSDKException
@@ -71,7 +70,7 @@ public class DeviceClient extends AbstractClient {
     }
 
     /**
-     * 获取设备状态
+     * Get device status
      * @param deviceId Integer
      * @param cloudId Integer
      * @return DeviceBasicInfo
@@ -95,7 +94,7 @@ public class DeviceClient extends AbstractClient {
     }
 
     /**
-     * 重启设备
+     * Reboot device
      * @param request ReportDeviceOfflineRequest
      * @throws CloudTestSDKException CloudTestSDKException
      */
@@ -104,7 +103,7 @@ public class DeviceClient extends AbstractClient {
     }
 
     /**
-     * 软重启设备
+     * Soft-reboot device
      * @param request SoftRebootDeviceRequest
      * @throws CloudTestSDKException CloudTestSDKException
      */
@@ -113,8 +112,8 @@ public class DeviceClient extends AbstractClient {
     }
 
     /**
-     * 获取设备机型列表
-     * @return ModelList 机型列表
+     * Get device model list
+     * @return ModelList device model list
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public ModelList[] getModelList(String projectId) throws CloudTestSDKException{

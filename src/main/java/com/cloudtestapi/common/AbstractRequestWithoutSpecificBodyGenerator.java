@@ -1,6 +1,6 @@
 package com.cloudtestapi.common;
 
-public abstract class AbstractRequestWithoutBodyAdapter extends AbstractRequest {
+public abstract class AbstractRequestWithoutSpecificBodyGenerator extends AbstractRequest {
 
     @Override
     protected String toJsonBody() {

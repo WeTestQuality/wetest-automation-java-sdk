@@ -43,7 +43,7 @@ public class UploadClient extends AbstractClient {
     }
 
     /**
-     * 获取App信息
+     * Get App info
      * @param appId int
      * @return App
      * @throws CloudTestSDKException CloudTestSDKException
@@ -65,7 +65,7 @@ public class UploadClient extends AbstractClient {
     }
 
     /**
-     * 获取script信息
+     * Get script info
      * @param request GetScriptInfoRequest
      * @return Script
      * @throws CloudTestSDKException CloudTestSDKException
@@ -83,12 +83,6 @@ public class UploadClient extends AbstractClient {
         return rsp.script;
     }
 
-    /**
-     * 获取script信息
-     * @param scriptId  int
-     * @return Script
-     * @throws CloudTestSDKException CloudTestSDKException
-     */
     public Script getScriptInfo(int scriptId) throws CloudTestSDKException{
         GetScriptInfoRequest request = new GetScriptInfoRequest();
         request.setScriptId(scriptId);
@@ -96,9 +90,9 @@ public class UploadClient extends AbstractClient {
     }
 
     /**
-     * 分片上传APK
-     * @param filePath 文件路径
-     * @return App信息
+     * Upload apk in multi part
+     * @param filePath file path
+     * @return App App info
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public App multiPartUploadApk(String filePath) throws CloudTestSDKException{
@@ -108,9 +102,9 @@ public class UploadClient extends AbstractClient {
     }
 
     /**
-     * 分片上传IPA
-     * @param filePath 文件路径
-     * @return App信息
+     * Upload ipa file in multi part
+     * @param filePath file path
+     * @return App app info
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public App multiPartUploadIpa(String filePath) throws CloudTestSDKException{
@@ -120,9 +114,9 @@ public class UploadClient extends AbstractClient {
     }
 
     /**
-     * 分片上传脚本
-     * @param filePath 文件路径
-     * @return App信息
+     * Upload script in multi part
+     * @param filePath file path
+     * @return Script script info
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public Script multiPartUploadScript(String filePath) throws CloudTestSDKException{
@@ -131,12 +125,6 @@ public class UploadClient extends AbstractClient {
         return this.dumpScript(uploadInfo);
     }
 
-    /**
-     * 上传分片
-     * @param filePath 文件路径
-     * @param uploadInfo 上传信息
-     * @throws CloudTestSDKException CloudTestSDKException
-     */
     private void uploadChunk(String filePath, UploadInfo uploadInfo) throws CloudTestSDKException{
         File f = new File(filePath);
         FileInputStream is;
@@ -239,11 +227,6 @@ public class UploadClient extends AbstractClient {
         return bos.toByteArray();
     }
 
-    /**
-     * dump安卓APK
-     * @param uploadInfo 上传信息
-     * @return App APP信息
-     */
     private App dumpApk(String filePath, UploadInfo uploadInfo) throws CloudTestSDKException {
         DumpAppRequest request = new DumpAppRequest();
         request.setFileName(uploadInfo.fileName);
@@ -264,13 +247,6 @@ public class UploadClient extends AbstractClient {
         }
     }
 
-    /**
-     * dump IOS IPA
-     * @param filePath 文件路径
-     * @param uploadInfo 上传信息
-     * @return APP 信息
-     * @throws CloudTestSDKException CloudTestSDKException
-     */
     private App dumpIPA(String filePath, UploadInfo uploadInfo) throws CloudTestSDKException{
         DumpAppRequest request = new DumpAppRequest();
         request.setFileName(uploadInfo.fileName);
@@ -305,12 +281,6 @@ public class UploadClient extends AbstractClient {
         }
     }
 
-    /**
-     * 获取上传文件信息
-     * @param filePath 文件路径
-     * @return UploadInfo 上传信息，包含上传文件ID
-     * @throws CloudTestSDKException CloudTestSDKException
-     */
     private UploadInfo getUploadInfo(String filePath, String uploadFileType) throws CloudTestSDKException{
         File f = new File(filePath);
         GetUploadFileIdResponse rsp;

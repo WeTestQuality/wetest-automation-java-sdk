@@ -1,10 +1,10 @@
 package com.cloudtestapi.test.models;
 
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class GetTestDevicesRequest extends AbstractRequestWithoutBodyAdapter {
+public class GetTestDevicesRequest extends AbstractRequestWithoutSpecificBodyGenerator {
     private Long testId;
 
     private boolean log;

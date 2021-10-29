@@ -1,11 +1,10 @@
 package com.cloudtestapi.upload.models;
 
-import com.cloudtestapi.common.AbstractRequest;
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class GetAppInfoRequest extends AbstractRequestWithoutBodyAdapter {
+public class GetAppInfoRequest extends AbstractRequestWithoutSpecificBodyGenerator {
 
     public Integer getAppId() {
         return appId;

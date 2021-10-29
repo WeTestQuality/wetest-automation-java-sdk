@@ -1,10 +1,10 @@
 package com.cloudtestapi.test.models;
 
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class CancelTestRequest extends AbstractRequestWithoutBodyAdapter {
+public class CancelTestRequest extends AbstractRequestWithoutSpecificBodyGenerator {
     private Long testId;
 
     public CancelTestRequest(){

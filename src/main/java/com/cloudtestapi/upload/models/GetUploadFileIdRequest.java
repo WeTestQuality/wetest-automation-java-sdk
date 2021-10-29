@@ -1,10 +1,10 @@
 package com.cloudtestapi.upload.models;
 
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class GetUploadFileIdRequest extends AbstractRequestWithoutBodyAdapter {
+public class GetUploadFileIdRequest extends AbstractRequestWithoutSpecificBodyGenerator {
     private long fileSize;
 
     private String fileName;

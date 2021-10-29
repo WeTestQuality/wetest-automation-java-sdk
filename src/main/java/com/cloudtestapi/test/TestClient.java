@@ -6,13 +6,9 @@ import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.test.models.AutomationTest;
 import com.cloudtestapi.test.models.CancelTestRequest;
-import com.cloudtestapi.test.models.CompatibilityTest;
-import com.cloudtestapi.test.models.FunctionalTest;
 import com.cloudtestapi.test.models.GetTestDevicesRequest;
 import com.cloudtestapi.test.models.GetTestDevicesResponse;
 import com.cloudtestapi.test.models.StartAutomationTestRequest;
-import com.cloudtestapi.test.models.StartCompatibilityTestRequest;
-import com.cloudtestapi.test.models.StartFunctionalTestRequest;
 import com.cloudtestapi.test.models.StartTestResponse;
 import com.cloudtestapi.test.models.TestDevice;
 import com.cloudtestapi.test.models.TestInfo;
@@ -30,8 +26,8 @@ public class TestClient extends AbstractClient {
     }
 
     /**
-     * 开启自动化测试
-     * @param test 自动化测试参数
+     * Start automation test
+     * @param test auto test parameters
      * @return TestInfo
      * @throws CloudTestSDKException CloudTestSDKException
      */
@@ -51,60 +47,8 @@ public class TestClient extends AbstractClient {
     }
 
     /**
-     * 开启兼容性测试
-     * @param request StartCompatibilityTestRequest
-     * @return  TestInfo
-     * @throws CloudTestSDKException CloudTestSDKException
-     */
-    private TestInfo startCompatibilityTest(StartCompatibilityTestRequest request) throws CloudTestSDKException {
-        StartTestResponse rsp = null;
-        String rspStr = "";
-        try{
-            Type type = new TypeToken<StartTestResponse>(){}.getType();
-            rspStr = this.internalRequest(request);
-            rsp = gson.fromJson(rspStr, type);
-        }catch (JsonSyntaxException e){
-            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
-        }
-        return rsp.testInfo;
-    }
-
-    /**
-     * 开启功能测试
-     * @param test FunctionalTest
-     * @return TestInfo
-     * @throws CloudTestSDKException CloudTestSDKException
-     */
-    public TestInfo startFunctionalTest(FunctionalTest test) throws CloudTestSDKException{
-        StartFunctionalTestRequest request = new StartFunctionalTestRequest();
-        request.setTest(test);
-        StartTestResponse rsp = null;
-        String rspStr = "";
-        try{
-            Type type = new TypeToken<StartTestResponse>(){}.getType();
-            rspStr = this.internalRequest(request);
-            rsp = gson.fromJson(rspStr, type);
-        }catch (JsonSyntaxException e){
-            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
-        }
-        return rsp.testInfo;
-    }
-
-    /**
-     * 开启兼容性测试 StartCompatibilityTestRequest
-     * @param test  CompatibilityTest
-     * @return TestInfo
-     * @throws CloudTestSDKException CloudTestSDKException
-     */
-    public TestInfo startCompatibilityTest(CompatibilityTest test) throws CloudTestSDKException{
-        StartCompatibilityTestRequest request = new StartCompatibilityTestRequest();
-        request.setTest(test);
-        return startCompatibilityTest(request);
-    }
-
-    /**
-     * 取消测试
-     * @param testId 测试ID
+     * cancel test
+     * @param testId test id
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public void cancelTest(Long testId) throws CloudTestSDKException{
@@ -114,12 +58,12 @@ public class TestClient extends AbstractClient {
     }
 
     /**
-     * 获取测试设备
-     * @param testId 测试ID
-     * @param log 是否要日志
-     * @param image 是否要图片
-     * @param error 是否要错误
-     * @return TestDevice[] 设备信息数组
+     * get test devices
+     * @param testId test ID
+     * @param log require log?
+     * @param image require image?
+     * @param error require error?
+     * @return TestDevice[] device info list
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public TestDevice[] getTestDevices(Long testId, boolean log, boolean image, boolean error) throws CloudTestSDKException{

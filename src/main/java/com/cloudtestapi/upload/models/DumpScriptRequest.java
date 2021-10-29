@@ -1,11 +1,10 @@
 package com.cloudtestapi.upload.models;
 
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
-import com.cloudtestapi.common.AbstractUploadRequest;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class DumpScriptRequest extends AbstractRequestWithoutBodyAdapter {
+public class DumpScriptRequest extends AbstractRequestWithoutSpecificBodyGenerator {
     private String uploadId;
 
     public DumpScriptRequest(){

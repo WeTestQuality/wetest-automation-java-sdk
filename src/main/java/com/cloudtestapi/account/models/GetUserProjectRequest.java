@@ -1,10 +1,10 @@
 package com.cloudtestapi.account.models;
 
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class GetUserProjectRequest extends AbstractRequestWithoutBodyAdapter {
+public class GetUserProjectRequest extends AbstractRequestWithoutSpecificBodyGenerator {
 
     private String user;
 

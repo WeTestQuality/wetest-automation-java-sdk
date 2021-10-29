@@ -22,8 +22,8 @@ public class AccountClient extends AbstractClient {
     }
 
     /**
-     * 获取账号下的项目列表
-     * @return 项目列表
+     * Get Project List
+     * @return Project List
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public Project[] getProjects() throws CloudTestSDKException {

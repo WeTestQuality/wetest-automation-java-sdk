@@ -1,11 +1,10 @@
 package com.cloudtestapi.device.models;
 
-import com.cloudtestapi.common.AbstractRequest;
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class SoftRebootDeviceRequest extends AbstractRequestWithoutBodyAdapter {
+public class SoftRebootDeviceRequest extends AbstractRequestWithoutSpecificBodyGenerator {
     private Integer deviceId;
     public SoftRebootDeviceRequest(){
         this.setHttpMethod(HttpProfile.REQ_PUT);

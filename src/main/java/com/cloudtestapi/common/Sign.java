@@ -36,19 +36,6 @@ public class Sign {
             throws UnsupportedEncodingException {
         StringBuilder paramStr = new StringBuilder();
         requestParams.forEach((key, value) -> {
-//            if (key.contains("[]")) {
-//                key = key.substring(0, key.length() - 2);
-//            }
-//            if (values.length < 1) {
-//                return;
-//            }
-//            String valueStr;
-//            if (values.length > 1) {
-//                valueStr = String.join(",", values);
-//            } else {
-//                valueStr = values[0];
-//            }
-
             paramStr.append(String.format("&%s=%s", key, value));
         });
         if (paramStr.length() > 0 && paramStr.indexOf("&") == 0) {

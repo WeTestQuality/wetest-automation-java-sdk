@@ -1,12 +1,10 @@
 package com.cloudtestapi.device.models;
 
-import com.cloudtestapi.common.AbstractRequest;
-import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
+import com.cloudtestapi.common.AbstractRequestWithoutSpecificBodyGenerator;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
-import java.util.Map;
 
-public class GetDeviceStateRequest extends AbstractRequestWithoutBodyAdapter {
+public class GetDeviceStateRequest extends AbstractRequestWithoutSpecificBodyGenerator {
     private Integer cloudId;
 
     private Integer deviceId;

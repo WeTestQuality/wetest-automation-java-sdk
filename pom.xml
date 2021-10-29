@@ -5,7 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cloudtestapi</groupId>
     <artifactId>ctapijava</artifactId>
-    <version>1.0.6</version>
+    <!-->11.xx.xx version is i18n version<-->
+    <version>11.0.6</version>
     <build>
         <plugins>
             <plugin>

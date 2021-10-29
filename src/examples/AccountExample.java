@@ -15,17 +15,17 @@ public class AccountExample {
     void init() throws CloudTestSDKException {
         Credential cred = new Credential(System.getenv("CT_SECRET_ID"),
                 System.getenv("CT_SECRET_KEY"));
-        // 实例化一个http选项，可选的，没有特殊需求可以跳过
+        // Instantiate http option
         HttpProfile httpProfile = new HttpProfile();
         httpProfile.setRootDomain(System.getenv("CT_API_DOMAIN"));
         httpProfile.setToolPath("cloudtest");
         httpProfile.setProtocol(HttpProfile.REQ_HTTP);
 
-        // 实例化一个client选项，可选的，没有特殊需求可跳过
+        // Instantiate client profile, for now, only SIGN_SHA256 signature supported
         ClientProfile profile = new ClientProfile(ClientProfile.SIGN_SHA256, httpProfile);
-//        profile.setDebug(true);
 
-        // 实例化client
+
+        // Instantiate client
         this.client = new CTClient(cred, profile);
     }
 
