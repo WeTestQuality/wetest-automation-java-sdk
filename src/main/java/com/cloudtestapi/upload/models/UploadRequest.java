@@ -5,13 +5,14 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class UploadRequest extends AbstractUploadRequest {
+
     private String uploadId;
 
     private int chunkNum;
 
     private byte[] body;
 
-    public UploadRequest(){
+    public UploadRequest() {
         this.setHttpMethod(HttpProfile.REQ_POST);
         this.withApiInfo("v1", "/files/:upload_id/chunks/:chunk_num");
     }

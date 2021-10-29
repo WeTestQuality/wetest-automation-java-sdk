@@ -5,11 +5,12 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class DumpAppRequest extends AbstractUploadRequest {
+
     private byte[] body;
 
     private String uploadId;
 
-    public DumpAppRequest(){
+    public DumpAppRequest() {
         this.setHttpMethod(HttpProfile.REQ_POST);
         this.withApiInfo("v1", "/files/:upload_id/app");
         this.setFieldName("file");

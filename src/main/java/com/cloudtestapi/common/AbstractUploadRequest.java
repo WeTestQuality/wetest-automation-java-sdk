@@ -1,8 +1,7 @@
 package com.cloudtestapi.common;
 
-import java.util.HashMap;
+public abstract class AbstractUploadRequest extends AbstractRequest {
 
-public abstract class AbstractUploadRequest extends AbstractRequest{
     private String fieldName;
 
     private String fileMime;

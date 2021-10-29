@@ -6,6 +6,13 @@ import java.util.HashMap;
 
 public class GetAppInfoRequest extends AbstractRequestWithoutSpecificBodyGenerator {
 
+    private Integer appId;
+
+    public GetAppInfoRequest() {
+        this.setHttpMethod(HttpProfile.REQ_GET);
+        this.withApiInfo("v1", "/apps/:app_id");
+    }
+
     public Integer getAppId() {
         return appId;
     }
@@ -14,17 +21,9 @@ public class GetAppInfoRequest extends AbstractRequestWithoutSpecificBodyGenerat
         this.appId = appId;
     }
 
-    private Integer appId;
-
-    public GetAppInfoRequest(){
-        this.setHttpMethod(HttpProfile.REQ_GET);
-        this.withApiInfo("v1", "/apps/:app_id");
-    }
-
-
-
     @Override
-    protected void toQueryParamMap(HashMap<String, Object> map, String prefix) {}
+    protected void toQueryParamMap(HashMap<String, Object> map, String prefix) {
+    }
 
     @Override
     protected void toPathParamMap(HashMap<String, String> map, String prefix) {

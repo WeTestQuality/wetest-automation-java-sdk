@@ -32,7 +32,7 @@ public class Sign {
     }
 
     public static String getSignSource(
-            TreeMap<String, Object> requestParams, String reqMethod,  String path)
+            TreeMap<String, Object> requestParams, String reqMethod, String path)
             throws UnsupportedEncodingException {
         StringBuilder paramStr = new StringBuilder();
         requestParams.forEach((key, value) -> {

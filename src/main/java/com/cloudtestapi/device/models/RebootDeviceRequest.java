@@ -5,9 +5,10 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class RebootDeviceRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private Integer deviceId;
 
-    public RebootDeviceRequest(){
+    public RebootDeviceRequest() {
         this.setHttpMethod(HttpProfile.REQ_PUT);
         this.withApiInfo("v1", "/devices/:device_id/reboot");
     }

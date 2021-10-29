@@ -10,6 +10,7 @@ import com.cloudtestapi.test.TestClient;
 import com.cloudtestapi.upload.UploadClient;
 
 public class CTClient extends AbstractClient {
+
     public UploadClient upload;
 
     public DeviceClient device;
@@ -18,11 +19,11 @@ public class CTClient extends AbstractClient {
 
     public AccountClient account;
 
-    public CTClient(Credential credential) throws CloudTestSDKException{
+    public CTClient(Credential credential) throws CloudTestSDKException {
         this(credential, new ClientProfile());
     }
 
-    public CTClient(Credential credential, ClientProfile clientProfile) throws CloudTestSDKException{
+    public CTClient(Credential credential, ClientProfile clientProfile) throws CloudTestSDKException {
         super(credential, clientProfile);
         this.upload = new UploadClient(credential, clientProfile);
         this.device = new DeviceClient(credential, clientProfile);

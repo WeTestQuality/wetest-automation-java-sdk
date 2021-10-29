@@ -30,13 +30,11 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 public class AbstractClient {
-    public static final int HTTP_RSP_OK = 200;
 
+    public static final int HTTP_RSP_OK = 200;
+    public Gson gson;
     private Credential credential;
     private ClientProfile profile;
-
-    public Gson gson;
-
     private TCLog log;
 
     public AbstractClient(
@@ -82,7 +80,6 @@ public class AbstractClient {
             throw new CloudTestSDKException(msg);
         }
 
-
         JsonResponseErrModel errResp;
         try {
             Type errType = new TypeToken<JsonResponseErrModel>() {
@@ -122,7 +119,7 @@ public class AbstractClient {
 
         // sign param
         this.signParam(queryMap, "/" + this.getClientProfile().getHttpProfile().getToolPath() + "/"
-                                        + request.getVersion() + path, request.getHttpMethod());
+                + request.getVersion() + path, request.getHttpMethod());
 
         HttpConnection conn =
                 new HttpConnection(
@@ -142,9 +139,9 @@ public class AbstractClient {
                 this.profile.getHttpProfile().getProtocol() + this.getRootDomain() + "/"
                         + this.profile.getHttpProfile().getToolPath() + "/"
                         + request.getVersion() + path + "?" + queryStr;
-        if (request instanceof AbstractUploadRequest){
+        if (request instanceof AbstractUploadRequest) {
             AbstractUploadRequest uploadRequest = (AbstractUploadRequest) request;
-            return conn.postFormRequest(url, uploadRequest.getBody(),  uploadRequest.getFieldName(),
+            return conn.postFormRequest(url, uploadRequest.getBody(), uploadRequest.getFieldName(),
                     uploadRequest.getFileName(), uploadRequest.getFileMime());
         }
 
@@ -154,12 +151,12 @@ public class AbstractClient {
                 return conn.getRequest(url);
             case HttpProfile.REQ_POST:
                 // request object to json str
-                if (jsonStr==null) {
+                if (jsonStr == null) {
                     jsonStr = gson.toJson(request);
                 }
                 return conn.postRequest(url, jsonStr);
             case HttpProfile.REQ_PUT:
-                if (jsonStr==null) {
+                if (jsonStr == null) {
                     jsonStr = gson.toJson(request);
                 }
                 return conn.putRequest(url, jsonStr);
@@ -173,7 +170,7 @@ public class AbstractClient {
     private String getQueryStr(HashMap<String, Object> queryMap) {
         List<NameValuePair> parameters = new ArrayList<>();
         queryMap.forEach((key, value) -> {
-            parameters.add(new BasicNameValuePair(key, String.valueOf(value)));
+                    parameters.add(new BasicNameValuePair(key, String.valueOf(value)));
 //                    if (values.length > 0) {
 //                        for (String value : values) {
 //                            parameters.add(new BasicNameValuePair(key, value));
@@ -226,7 +223,7 @@ public class AbstractClient {
             throws CloudTestSDKException {
         Random rd = new Random();
         param.put("t", String.valueOf(System.currentTimeMillis() / 1000));
-        param.put("nonce",  String.valueOf(rd.nextInt(99999)));
+        param.put("nonce", String.valueOf(rd.nextInt(99999)));
         if (this.credential.getSecretId() != null && (!this.credential.getSecretId().isEmpty())) {
             param.put("secret_id", this.credential.getSecretId());
             param.put("secretid", this.credential.getSecretId());
@@ -265,28 +262,28 @@ public class AbstractClient {
         }
     }
 
-    public void setLogger(Log logger){
-        this.log.setLogger(logger);
-    }
-
     public Log getLogger() {
         return log.getLogger();
     }
 
-    public void setClientProfile(ClientProfile profile) {
-        this.profile = profile;
+    public void setLogger(Log logger) {
+        this.log.setLogger(logger);
     }
 
     public ClientProfile getClientProfile() {
         return this.profile;
     }
 
-    public void setCredential(Credential credential) {
-        this.credential = credential;
+    public void setClientProfile(ClientProfile profile) {
+        this.profile = profile;
     }
 
     public Credential getCredential() {
         return this.credential;
+    }
+
+    public void setCredential(Credential credential) {
+        this.credential = credential;
     }
 
     public void setProfile(ClientProfile profile) {

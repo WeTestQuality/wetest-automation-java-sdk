@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UploadInfo {
+
     @Expose
     @SerializedName("chunk_number")
     public int chunkNumber;

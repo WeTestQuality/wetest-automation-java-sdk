@@ -5,6 +5,7 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class GetTestDevicesRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private Long testId;
 
     private boolean log;
@@ -13,7 +14,7 @@ public class GetTestDevicesRequest extends AbstractRequestWithoutSpecificBodyGen
 
     private boolean error;
 
-    public GetTestDevicesRequest(){
+    public GetTestDevicesRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
         this.withApiInfo("v1", "/tests/:test_id/devices");
     }

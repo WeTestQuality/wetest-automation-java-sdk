@@ -5,8 +5,10 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class GetModelListRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private String projectId;
-    public GetModelListRequest(){
+
+    public GetModelListRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
         this.withApiInfo("v1", "/model/list/devops");
     }

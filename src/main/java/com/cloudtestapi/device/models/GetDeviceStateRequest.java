@@ -5,11 +5,12 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class GetDeviceStateRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private Integer cloudId;
 
     private Integer deviceId;
 
-    public GetDeviceStateRequest(){
+    public GetDeviceStateRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
         this.withApiInfo("v1", "/clouds/:cloud_id/devices/:device_id/state");
     }

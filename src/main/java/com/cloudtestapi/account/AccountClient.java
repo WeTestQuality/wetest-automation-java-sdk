@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 public class AccountClient extends AbstractClient {
+
     public AccountClient(Credential credential) {
         this(credential, new ClientProfile());
     }
@@ -23,18 +24,20 @@ public class AccountClient extends AbstractClient {
 
     /**
      * Get Project List
+     *
      * @return Project List
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public Project[] getProjects() throws CloudTestSDKException {
         GetUserProjectRequest request = new GetUserProjectRequest();
         GetUserProjectResponse rsp;
-        String rspStr= "";
-        try{
-            Type type = new TypeToken<GetUserProjectResponse>(){}.getType();
+        String rspStr = "";
+        try {
+            Type type = new TypeToken<GetUserProjectResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
-        }catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.projects;

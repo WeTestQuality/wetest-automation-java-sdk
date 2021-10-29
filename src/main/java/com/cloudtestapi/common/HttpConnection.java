@@ -1,15 +1,15 @@
 package com.cloudtestapi.common;
 
+import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-import com.squareup.okhttp.MultipartBuilder;
-import com.cloudtestapi.common.exception.CloudTestSDKException;
 import java.io.IOException;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
@@ -121,7 +121,7 @@ public class HttpConnection {
                             .url(url)
                             .post(requestBody)
                             .build();
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
         }
 

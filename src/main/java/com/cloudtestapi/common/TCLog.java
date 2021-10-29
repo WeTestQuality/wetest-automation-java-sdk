@@ -6,19 +6,10 @@ import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import java.io.IOException;
-import java.util.Arrays;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 class TCLog implements Interceptor {
-
-    public boolean isDebug() {
-        return debug;
-    }
-
-    public void setDebug(boolean debug) {
-        this.debug = debug;
-    }
 
     private boolean debug;
     private Log logger = null;
@@ -29,33 +20,41 @@ class TCLog implements Interceptor {
         this.debug = isDebug;
         this.gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
-    
-    public TCLog(Log logger, boolean isDebug){
+
+    public TCLog(Log logger, boolean isDebug) {
         this.logger = logger;
         this.debug = isDebug;
         this.gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
-    public void setLogger(Log logger) {
-        this.logger = logger;
+    public boolean isDebug() {
+        return debug;
     }
-    
-    public Log getLogger(){
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    public Log getLogger() {
         return this.logger;
     }
 
+    public void setLogger(Log logger) {
+        this.logger = logger;
+    }
+
     public void info(final String str) {
-            logger.info(str);
+        logger.info(str);
     }
 
     public void info(final String str, final Throwable t) {
-            logger.info(str, t);
+        logger.info(str, t);
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        if (debug){
+        if (debug) {
             this.logger.info("send request, request url: " + request.urlString());
             this.logger.info("request header: " + request.headers().toString());
             this.logger.info("request body: " + gson.toJson(request.body()));
@@ -63,7 +62,7 @@ class TCLog implements Interceptor {
 
         Response response = chain.proceed(request);
 
-        if (debug){
+        if (debug) {
             this.logger.info("response header:" + response.headers().toString());
             this.logger.info("response body:" + response.body().string());
         }

@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class AutomationTest extends TestParam {
+
     @SerializedName("parser_type")
     @Expose
     public String parserType;

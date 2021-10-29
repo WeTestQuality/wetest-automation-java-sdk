@@ -3,12 +3,9 @@ package com.cloudtestapi.common.exception;
 public class CloudTestSDKException extends Exception {
 
     private static final long serialVersionUID = 1L;
-
-    private int errorCode;
-
-    private String traceId;
-
     private static final int ErrorCodeBadRequest = 400;
+    private int errorCode;
+    private String traceId;
 
     public CloudTestSDKException(String message) {
         this(message, ErrorCodeBadRequest, "");
@@ -20,12 +17,16 @@ public class CloudTestSDKException extends Exception {
         this.traceId = traceId;
     }
 
-    public int getErrorCode() {
-        return errorCode;
-    }
-
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public static int getErrorCodeBadRequest() {
+        return ErrorCodeBadRequest;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
     }
 
     public void setErrorCode(int errorCode) {
@@ -40,10 +41,6 @@ public class CloudTestSDKException extends Exception {
         this.traceId = traceId;
     }
 
-    public static int getErrorCodeBadRequest() {
-        return ErrorCodeBadRequest;
-    }
-
     public String toString() {
         return "[CloudTestSDKException]"
                 + "code: "
@@ -53,7 +50,6 @@ public class CloudTestSDKException extends Exception {
                 + " trace_id: "
                 + this.getTraceId();
     }
-
 
 
 }

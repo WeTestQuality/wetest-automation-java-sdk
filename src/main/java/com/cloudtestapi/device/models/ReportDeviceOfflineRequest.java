@@ -6,9 +6,10 @@ import java.util.HashMap;
 
 
 public class ReportDeviceOfflineRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private Integer deviceId;
 
-    public ReportDeviceOfflineRequest(){
+    public ReportDeviceOfflineRequest() {
         this.setHttpMethod(HttpProfile.REQ_PUT);
         this.withApiInfo("v1", "/devices/:device_id/offline");
     }

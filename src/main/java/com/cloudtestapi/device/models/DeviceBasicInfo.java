@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class DeviceBasicInfo {
+
     @Expose
     @SerializedName("cloud_id")
     public int cloudID;

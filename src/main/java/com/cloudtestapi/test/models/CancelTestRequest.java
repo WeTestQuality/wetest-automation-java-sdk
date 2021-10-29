@@ -5,9 +5,10 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class CancelTestRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private Long testId;
 
-    public CancelTestRequest(){
+    public CancelTestRequest() {
         this.setHttpMethod(HttpProfile.REQ_POST);
         this.withApiInfo("v1", "/tests/:test_id/cancelation");
     }

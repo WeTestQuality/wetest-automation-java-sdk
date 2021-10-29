@@ -5,9 +5,10 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class GetScriptInfoRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private Integer scriptId;
 
-    public GetScriptInfoRequest(){
+    public GetScriptInfoRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
         this.withApiInfo("v1", "/scripts/:script");
     }

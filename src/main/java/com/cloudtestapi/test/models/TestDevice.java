@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class TestDevice {
+
     @Expose
     @SerializedName("device_id")
     public int deviceID;

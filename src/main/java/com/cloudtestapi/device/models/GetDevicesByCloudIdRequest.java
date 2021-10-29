@@ -5,9 +5,10 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class GetDevicesByCloudIdRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private Integer cloudId;
 
-    public GetDevicesByCloudIdRequest(){
+    public GetDevicesByCloudIdRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
         this.withApiInfo("v1", "/clouds/:cloud_id/devices");
     }

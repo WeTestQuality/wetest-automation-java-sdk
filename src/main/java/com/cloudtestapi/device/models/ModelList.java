@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 // ModelList 机型列表
 public class ModelList {
+
     @Expose
     public int id;
 

@@ -5,13 +5,14 @@ import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
 public class GetUploadFileIdRequest extends AbstractRequestWithoutSpecificBodyGenerator {
+
     private long fileSize;
 
     private String fileName;
 
     private String uploadFileType;
 
-    public GetUploadFileIdRequest(){
+    public GetUploadFileIdRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
         this.withApiInfo("v1", "/files");
     }

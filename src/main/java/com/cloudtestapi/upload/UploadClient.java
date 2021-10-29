@@ -5,8 +5,8 @@ import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.upload.models.App;
-import com.cloudtestapi.upload.models.DumpAppResponse;
 import com.cloudtestapi.upload.models.DumpAppRequest;
+import com.cloudtestapi.upload.models.DumpAppResponse;
 import com.cloudtestapi.upload.models.DumpScriptRequest;
 import com.cloudtestapi.upload.models.DumpScriptResponse;
 import com.cloudtestapi.upload.models.GetAppInfoRequest;
@@ -34,6 +34,7 @@ import java.util.zip.ZipOutputStream;
 
 
 public class UploadClient extends AbstractClient {
+
     public UploadClient(Credential credential) {
         this(credential, new ClientProfile());
     }
@@ -44,11 +45,12 @@ public class UploadClient extends AbstractClient {
 
     /**
      * Get App info
+     *
      * @param appId int
      * @return App
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public App getAppInfo(int appId) throws CloudTestSDKException{
+    public App getAppInfo(int appId) throws CloudTestSDKException {
         GetAppInfoRequest request = new GetAppInfoRequest();
         request.setAppId(appId);
         GetAppInfoResponse rsp = null;
@@ -66,24 +68,26 @@ public class UploadClient extends AbstractClient {
 
     /**
      * Get script info
+     *
      * @param request GetScriptInfoRequest
      * @return Script
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    private Script getScriptInfo(GetScriptInfoRequest request) throws CloudTestSDKException{
+    private Script getScriptInfo(GetScriptInfoRequest request) throws CloudTestSDKException {
         GetScriptInfoResponse rsp = null;
         String rspStr = "";
-        try{
-            Type type = new TypeToken<GetScriptInfoResponse>(){}.getType();
+        try {
+            Type type = new TypeToken<GetScriptInfoResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
-        }catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.script;
     }
 
-    public Script getScriptInfo(int scriptId) throws CloudTestSDKException{
+    public Script getScriptInfo(int scriptId) throws CloudTestSDKException {
         GetScriptInfoRequest request = new GetScriptInfoRequest();
         request.setScriptId(scriptId);
         return this.getScriptInfo(request);
@@ -91,11 +95,12 @@ public class UploadClient extends AbstractClient {
 
     /**
      * Upload apk in multi part
+     *
      * @param filePath file path
      * @return App App info
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public App multiPartUploadApk(String filePath) throws CloudTestSDKException{
+    public App multiPartUploadApk(String filePath) throws CloudTestSDKException {
         UploadInfo uploadInfo = this.getUploadInfo(filePath, "android");
         this.uploadChunk(filePath, uploadInfo);
         return this.dumpApk(filePath, uploadInfo);
@@ -103,11 +108,12 @@ public class UploadClient extends AbstractClient {
 
     /**
      * Upload ipa file in multi part
+     *
      * @param filePath file path
      * @return App app info
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public App multiPartUploadIpa(String filePath) throws CloudTestSDKException{
+    public App multiPartUploadIpa(String filePath) throws CloudTestSDKException {
         UploadInfo uploadInfo = this.getUploadInfo(filePath, "ios");
         this.uploadChunk(filePath, uploadInfo);
         return this.dumpIPA(filePath, uploadInfo);
@@ -115,32 +121,33 @@ public class UploadClient extends AbstractClient {
 
     /**
      * Upload script in multi part
+     *
      * @param filePath file path
      * @return Script script info
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public Script multiPartUploadScript(String filePath) throws CloudTestSDKException{
+    public Script multiPartUploadScript(String filePath) throws CloudTestSDKException {
         UploadInfo uploadInfo = this.getUploadInfo(filePath, "script");
         this.uploadChunk(filePath, uploadInfo);
         return this.dumpScript(uploadInfo);
     }
 
-    private void uploadChunk(String filePath, UploadInfo uploadInfo) throws CloudTestSDKException{
+    private void uploadChunk(String filePath, UploadInfo uploadInfo) throws CloudTestSDKException {
         File f = new File(filePath);
         FileInputStream is;
         try {
-             is = new FileInputStream(f);
+            is = new FileInputStream(f);
         } catch (FileNotFoundException e) {
             throw new CloudTestSDKException("file not found, filePath:" + filePath);
         }
 
-        for(int i= 0; i<uploadInfo.chunkNumber; i++){
+        for (int i = 0; i < uploadInfo.chunkNumber; i++) {
             byte[] chunk;
             int chunkSize = 0;
             // 最后一次特殊处理
-            if(i == uploadInfo.chunkNumber - 1){
+            if (i == uploadInfo.chunkNumber - 1) {
                 chunk = new byte[(int) (uploadInfo.fileSize - uploadInfo.chunkSize * i)];
-            }else{
+            } else {
                 chunk = new byte[(int) uploadInfo.chunkSize];
             }
             try {
@@ -154,24 +161,24 @@ public class UploadClient extends AbstractClient {
             request.setFileMime("application/zip");
             request.setBody(chunk);
             request.setUploadId(uploadInfo.uploadId);
-            request.setChunkNum(i+1);
+            request.setChunkNum(i + 1);
             System.out.println("upload chunk id=" + (i + 1) + " chunk size=" + chunkSize);
             this.internalRequest(request);
         }
 
     }
 
-    private byte[] getIPADumpContent(String filePath) throws CloudTestSDKException{
+    private byte[] getIPADumpContent(String filePath) throws CloudTestSDKException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(bos);
 
-        try{
+        try {
             ZipFile zipFile = new ZipFile(filePath);
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
-            while (entries.hasMoreElements()){
+            while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
                 String[] elems = entry.getName().split("/");
-                if(elems.length == 3 && elems[0].equals("Payload") && elems[2].equals("Info.plist")){
+                if (elems.length == 3 && elems[0].equals("Payload") && elems[2].equals("Info.plist")) {
                     InputStream is = zipFile.getInputStream(entry);
                     ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                     int nRead;
@@ -187,22 +194,22 @@ public class UploadClient extends AbstractClient {
             }
             zos.closeEntry();
             zos.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new CloudTestSDKException("get ipa dump file, io exception msg:" + e.getMessage());
         }
         return bos.toByteArray();
     }
 
-    private byte[] getApkDumpContent(String filePath) throws CloudTestSDKException{
+    private byte[] getApkDumpContent(String filePath) throws CloudTestSDKException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(bos);
         try {
 
             ZipFile zipFile = new ZipFile(filePath);
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
-            while (entries.hasMoreElements()){
+            while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                if (entry.getName().equals("AndroidManifest.xml") || entry.getName().equals("resources.arsc")){
+                if (entry.getName().equals("AndroidManifest.xml") || entry.getName().equals("resources.arsc")) {
                     InputStream is = zipFile.getInputStream(entry);
                     ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
@@ -238,16 +245,17 @@ public class UploadClient extends AbstractClient {
         String rspStr = "";
 
         try {
-            Type type = new TypeToken<DumpAppResponse>(){}.getType();
+            Type type = new TypeToken<DumpAppResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
             return rsp.app;
-        }catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
     }
 
-    private App dumpIPA(String filePath, UploadInfo uploadInfo) throws CloudTestSDKException{
+    private App dumpIPA(String filePath, UploadInfo uploadInfo) throws CloudTestSDKException {
         DumpAppRequest request = new DumpAppRequest();
         request.setFileName(uploadInfo.fileName);
         request.setUploadId(uploadInfo.uploadId);
@@ -257,35 +265,37 @@ public class UploadClient extends AbstractClient {
         String rspStr = "";
 
         try {
-            Type type = new TypeToken<DumpAppResponse>(){}.getType();
+            Type type = new TypeToken<DumpAppResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
             return rsp.app;
-        }catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
     }
 
-    private Script dumpScript(UploadInfo uploadInfo) throws CloudTestSDKException{
+    private Script dumpScript(UploadInfo uploadInfo) throws CloudTestSDKException {
         DumpScriptRequest request = new DumpScriptRequest();
         request.setUploadId(uploadInfo.uploadId);
         DumpScriptResponse rsp;
         String rspStr = "";
         try {
-            Type type = new TypeToken<DumpScriptResponse>(){}.getType();
+            Type type = new TypeToken<DumpScriptResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
             return rsp.script;
-        }catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
     }
 
-    private UploadInfo getUploadInfo(String filePath, String uploadFileType) throws CloudTestSDKException{
+    private UploadInfo getUploadInfo(String filePath, String uploadFileType) throws CloudTestSDKException {
         File f = new File(filePath);
         GetUploadFileIdResponse rsp;
         String rspStr = "";
-        try{
+        try {
             long fileSize = f.length();
             String fileName = f.getName();
 
@@ -293,14 +303,15 @@ public class UploadClient extends AbstractClient {
             request.setFileName(fileName);
             request.setFileSize(fileSize);
             request.setUploadFileType(uploadFileType);
-            Type type = new TypeToken<GetUploadFileIdResponse>(){}.getType();
+            Type type = new TypeToken<GetUploadFileIdResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
 
             rsp.uploadInfo.fileName = fileName;
             rsp.uploadInfo.fileType = uploadFileType;
             rsp.uploadInfo.fileSize = fileSize;
-        } catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.uploadInfo;

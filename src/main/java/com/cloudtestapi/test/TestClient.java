@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 public class TestClient extends AbstractClient {
+
     public TestClient(Credential credential) {
         this(credential, new ClientProfile());
     }
@@ -27,20 +28,22 @@ public class TestClient extends AbstractClient {
 
     /**
      * Start automation test
+     *
      * @param test auto test parameters
      * @return TestInfo
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public TestInfo startAutomationTest(AutomationTest test) throws CloudTestSDKException{
+    public TestInfo startAutomationTest(AutomationTest test) throws CloudTestSDKException {
         StartTestResponse rsp = null;
         String rspStr = "";
         StartAutomationTestRequest request = new StartAutomationTestRequest();
         request.setTest(test);
-        try{
-            Type type = new TypeToken<StartTestResponse>(){}.getType();
+        try {
+            Type type = new TypeToken<StartTestResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
-        }catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.testInfo;
@@ -48,10 +51,11 @@ public class TestClient extends AbstractClient {
 
     /**
      * cancel test
+     *
      * @param testId test id
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public void cancelTest(Long testId) throws CloudTestSDKException{
+    public void cancelTest(Long testId) throws CloudTestSDKException {
         CancelTestRequest request = new CancelTestRequest();
         request.setTestId(testId);
         this.internalRequest(request);
@@ -59,6 +63,7 @@ public class TestClient extends AbstractClient {
 
     /**
      * get test devices
+     *
      * @param testId test ID
      * @param log require log?
      * @param image require image?
@@ -66,7 +71,8 @@ public class TestClient extends AbstractClient {
      * @return TestDevice[] device info list
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public TestDevice[] getTestDevices(Long testId, boolean log, boolean image, boolean error) throws CloudTestSDKException{
+    public TestDevice[] getTestDevices(Long testId, boolean log, boolean image, boolean error)
+            throws CloudTestSDKException {
         GetTestDevicesRequest request = new GetTestDevicesRequest();
         request.setTestId(testId);
         request.setLog(log);
@@ -74,11 +80,12 @@ public class TestClient extends AbstractClient {
         request.setError(error);
         GetTestDevicesResponse rsp = null;
         String rspStr = "";
-        try{
-            Type type = new TypeToken<GetTestDevicesResponse>(){}.getType();
+        try {
+            Type type = new TypeToken<GetTestDevicesResponse>() {
+            }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
-        }catch (JsonSyntaxException e){
+        } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.devices;

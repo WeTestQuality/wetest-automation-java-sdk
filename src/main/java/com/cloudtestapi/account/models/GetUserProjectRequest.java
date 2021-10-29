@@ -8,7 +8,7 @@ public class GetUserProjectRequest extends AbstractRequestWithoutSpecificBodyGen
 
     private String user;
 
-    public GetUserProjectRequest(){
+    public GetUserProjectRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
         this.withApiInfo("v1", "/users/projects");
     }
