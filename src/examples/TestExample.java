@@ -11,12 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestExample {
+
     private CTClient client;
 
     @BeforeEach
     void init() throws CloudTestSDKException {
-        Credential cred = new Credential(System.getenv("CT_SECRET_ID"),
-                System.getenv("CT_SECRET_KEY"));
         // Instantiate http option
         HttpProfile httpProfile = new HttpProfile();
         httpProfile.setRootDomain(System.getenv("CT_API_DOMAIN"));
@@ -26,6 +25,10 @@ public class TestExample {
         // Instantiate client profile, for now, only SIGN_SHA256 signature supported
         ClientProfile profile = new ClientProfile(ClientProfile.SIGN_SHA256, httpProfile);
 
+        // Init credential
+        Credential cred = new Credential(System.getenv("CT_SECRET_ID"),
+                System.getenv("CT_SECRET_KEY"));
+
         // Instantiate client
         this.client = new CTClient(cred, profile);
 
@@ -34,7 +37,7 @@ public class TestExample {
     }
 
     @Test
-    void test_start_automation_test() throws CloudTestSDKException{
+    void test_start_automation_test() throws CloudTestSDKException {
         AutomationTest test = new AutomationTest();
         test.setAccount(new String[][]{new String[]{"n1", "p1"}});
         test.setAppId(384);
@@ -52,18 +55,19 @@ public class TestExample {
         test.setMaxCaseRuntime(600);
         test.setParserType(ParserType.PyTest.getValue());
     }
+
     @Test
-    void test_cancel_test() throws CloudTestSDKException{
+    void test_cancel_test() throws CloudTestSDKException {
         this.client.test.cancelTest(2021100400171951L);
     }
 
     @Test
-    void test_logger(){
+    void test_logger() {
         this.client.getLogger().info("hello world");
     }
 
     @Test
-    void test_constants(){
+    void test_constants() {
         System.out.println(ModelListFilterType.MODEL.getCode());
         System.out.println(ModelListFilterType.DEVICE.getCode());
 

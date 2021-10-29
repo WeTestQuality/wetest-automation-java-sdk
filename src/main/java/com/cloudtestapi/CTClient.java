@@ -33,8 +33,8 @@ public class CTClient extends AbstractClient {
     }
 
     private void checkCredential(Credential credential) throws CloudTestSDKException {
-        if (credential == null || credential.getSecretId() == null || credential.getSecretKey() == null ||
-                credential.getSecretId().length() == 0 || credential.getSecretKey().length() == 0) {
+        if (credential == null || credential.getSecretId() == null || credential.getSecretKey() == null
+                || credential.getSecretId().length() == 0 || credential.getSecretKey().length() == 0) {
             throw new CloudTestSDKException("invalid credential");
         }
     }

@@ -80,14 +80,23 @@ public class HttpConnection {
         return this.doRequest(request);
     }
 
-    public Response putRequest(String url, String body) throws CloudTestSDKException {
-        MediaType contentType = MediaType.parse("application/json");
+
+    public Response postRequest(String url, byte[] body, Headers headers)
+            throws CloudTestSDKException {
+        MediaType contentType = MediaType.parse(headers.get("Content-Type"));
         Request request = null;
         try {
-            request = new Request.Builder().url(url).put(RequestBody.create(contentType, body)).build();
+            request =
+                    new Request.Builder()
+                            .url(url)
+                            .post(RequestBody.create(contentType, body))
+                            .headers(headers)
+                            .build();
         } catch (IllegalArgumentException e) {
             throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
+
         }
+
         return this.doRequest(request);
     }
 
@@ -106,6 +115,18 @@ public class HttpConnection {
             throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
         }
 
+        return this.doRequest(request);
+    }
+
+
+    public Response putRequest(String url, String body) throws CloudTestSDKException {
+        MediaType contentType = MediaType.parse("application/json");
+        Request request = null;
+        try {
+            request = new Request.Builder().url(url).put(RequestBody.create(contentType, body)).build();
+        } catch (IllegalArgumentException e) {
+            throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
+        }
         return this.doRequest(request);
     }
 
@@ -128,23 +149,5 @@ public class HttpConnection {
         return this.doRequest(request);
     }
 
-    public Response postRequest(String url, byte[] body, Headers headers)
-            throws CloudTestSDKException {
-        MediaType contentType = MediaType.parse(headers.get("Content-Type"));
-        Request request = null;
-        try {
-            request =
-                    new Request.Builder()
-                            .url(url)
-                            .post(RequestBody.create(contentType, body))
-                            .headers(headers)
-                            .build();
-        } catch (IllegalArgumentException e) {
-            throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
-
-        }
-
-        return this.doRequest(request);
-    }
 
 }

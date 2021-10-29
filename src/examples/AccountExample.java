@@ -9,21 +9,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AccountExample {
+
     private CTClient client;
 
     @BeforeEach
     void init() throws CloudTestSDKException {
-        Credential cred = new Credential(System.getenv("CT_SECRET_ID"),
-                System.getenv("CT_SECRET_KEY"));
         // Instantiate http option
         HttpProfile httpProfile = new HttpProfile();
         httpProfile.setRootDomain(System.getenv("CT_API_DOMAIN"));
         httpProfile.setToolPath("cloudtest");
-        httpProfile.setProtocol(HttpProfile.REQ_HTTP);
+        httpProfile.setProtocol(HttpProfile.REQ_HTTPS);
 
         // Instantiate client profile, for now, only SIGN_SHA256 signature supported
         ClientProfile profile = new ClientProfile(ClientProfile.SIGN_SHA256, httpProfile);
 
+        // Init credential
+        Credential cred = new Credential(System.getenv("CT_SECRET_ID"),
+                System.getenv("CT_SECRET_KEY"));
 
         // Instantiate client
         this.client = new CTClient(cred, profile);
@@ -31,7 +33,7 @@ public class AccountExample {
 
 
     @Test
-    void test_get_projects() throws CloudTestSDKException{
+    void test_get_projects() throws CloudTestSDKException {
         Assertions.assertDoesNotThrow(() -> {
             Project[] projects = this.client.account.getProjects();
             System.out.println(this.client.gson.toJson(projects));
