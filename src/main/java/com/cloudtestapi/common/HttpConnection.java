@@ -80,37 +80,25 @@ public class HttpConnection {
         return this.doRequest(request);
     }
 
-
-    public Response postRequest(String url, byte[] body, Headers headers)
+    public Response postRequest(String url, Object body, Headers headers)
             throws CloudTestSDKException {
         MediaType contentType = MediaType.parse(headers.get("Content-Type"));
         Request request = null;
         try {
-            request =
-                    new Request.Builder()
-                            .url(url)
-                            .post(RequestBody.create(contentType, body))
-                            .headers(headers)
-                            .build();
-        } catch (IllegalArgumentException e) {
-            throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
+            if (body instanceof String) {
+                request =
+                        new Request.Builder()
+                                .url(url)
+                                .post(RequestBody.create(contentType, (String) body))
+                                .headers(headers).build();
+            } else {
+                request =
+                        new Request.Builder()
+                                .url(url)
+                                .post(RequestBody.create(contentType, (byte[]) body))
+                                .headers(headers).build();
+            }
 
-        }
-
-        return this.doRequest(request);
-    }
-
-    public Response postRequest(String url, String body, Headers headers)
-            throws CloudTestSDKException {
-        MediaType contentType = MediaType.parse(headers.get("Content-Type"));
-        Request request = null;
-        try {
-            request =
-                    new Request.Builder()
-                            .url(url)
-                            .post(RequestBody.create(contentType, body))
-                            .headers(headers)
-                            .build();
         } catch (IllegalArgumentException e) {
             throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
         }
