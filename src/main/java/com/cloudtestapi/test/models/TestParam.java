@@ -13,6 +13,10 @@ public class TestParam {
     public int appId;
 
     @Expose
+    @SerializedName("app_hash_id")
+    public String appHashId;
+
+    @Expose
     @SerializedName("cloud_ids")
     public int[] cloudIds;
 
