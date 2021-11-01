@@ -4,29 +4,30 @@ import com.cloudtestapi.common.AbstractRequestWithoutBodyAdapter;
 import com.cloudtestapi.common.profile.HttpProfile;
 import java.util.HashMap;
 
-public class GetAppInfoRequest extends AbstractRequestWithoutBodyAdapter {
+public class GetUploadResultFromWTRequest extends AbstractRequestWithoutBodyAdapter {
 
-    private Integer appId;
+    private String id;
 
-    public GetAppInfoRequest() {
+    public GetUploadResultFromWTRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
-        this.withApiInfo("v1", "/apps/:app_id");
-    }
-
-    public Integer getAppId() {
-        return appId;
-    }
-
-    public void setAppId(Integer appId) {
-        this.appId = appId;
+        this.withApiInfo("v1", "/platform/upload/result");
     }
 
     @Override
     protected void toQueryParamMap(HashMap<String, Object> map, String prefix) {
+        map.put("id", id);
     }
 
     @Override
     protected void toPathParamMap(HashMap<String, String> map, String prefix) {
-        map.put(":app_id", appId.toString());
+
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
