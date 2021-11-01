@@ -4,12 +4,17 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class TestParam {
+
     @Expose
     public String[][] accounts;
 
     @Expose
     @SerializedName("app_id")
     public int appId;
+
+    @Expose
+    @SerializedName("app_hash_id")
+    public String appHashId;
 
     @Expose
     @SerializedName("cloud_ids")
