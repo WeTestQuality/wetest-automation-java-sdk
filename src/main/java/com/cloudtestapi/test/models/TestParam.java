@@ -245,4 +245,12 @@ public class TestParam {
     public void setOrderAccountType(String orderAccountType) {
         this.orderAccountType = orderAccountType;
     }
+
+    public String getAppHashId() {
+        return appHashId;
+    }
+
+    public void setAppHashId(String appHashId) {
+        this.appHashId = appHashId;
+    }
 }
