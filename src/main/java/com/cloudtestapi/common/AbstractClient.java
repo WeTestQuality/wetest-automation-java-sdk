@@ -90,7 +90,7 @@ public class AbstractClient {
             log.info(msg);
             throw new CloudTestSDKException(msg);
         }
-        if (errResp != null && errResp.code != 0) {
+        if (errResp != null && errResp.code != 0 && errResp.code != 1) {
             throw new CloudTestSDKException(
                     errResp.message + ";" + errResp.msg,
                     errResp.code,

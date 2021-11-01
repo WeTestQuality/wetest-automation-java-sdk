@@ -5,6 +5,7 @@ import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.common.profile.HttpProfile;
 import com.cloudtestapi.upload.models.App;
 import com.cloudtestapi.upload.models.Script;
+import com.cloudtestapi.upload.models.WTApp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,10 @@ public class UploadExample {
 
     @BeforeEach
     void init() throws CloudTestSDKException {
-        // Instantiate http option
         HttpProfile httpProfile = new HttpProfile();
         httpProfile.setRootDomain(System.getenv("CT_API_DOMAIN"));
         httpProfile.setToolPath("cloudtest");
-        httpProfile.setProtocol(HttpProfile.REQ_HTTP);
+        httpProfile.setProtocol(HttpProfile.REQ_HTTPS);
 
         // Instantiate client profile, for now, only SIGN_SHA256 signature supported
         ClientProfile profile = new ClientProfile(ClientProfile.SIGN_SHA256, httpProfile);
@@ -59,6 +59,26 @@ public class UploadExample {
     }
 
     @Test
+    void test_upload_apk_wetest() {
+        Assertions.assertDoesNotThrow(() -> {
+            WTApp app = this.client.upload.multiPartUploadApkToWT(
+                    "YOUR_APK_FILE_PATH", "YOUR_PROJECT_ID"
+            );
+            System.out.println(this.client.gson.toJson(app));
+        });
+    }
+
+    @Test
+    void test_upload_ipa_wetest() {
+        Assertions.assertDoesNotThrow(() -> {
+            WTApp app = this.client.upload.multiPartUploadIpaToWT(
+                    "YOUR_IPA_FILE_PATH", "YOUR_PROJECT_ID"
+            );
+            System.out.println(this.client.gson.toJson(app));
+        });
+    }
+
+    @Test
     void test_upload_ipa() {
         Assertions.assertDoesNotThrow(() -> {
             App app = this.client.upload.multiPartUploadIpa("YOUR_IPA_FILE_PATH");
@@ -73,5 +93,4 @@ public class UploadExample {
             System.out.println(this.client.gson.toJson(script));
         });
     }
-
 }
