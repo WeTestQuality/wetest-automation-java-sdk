@@ -8,10 +8,13 @@ import com.cloudtestapi.test.models.AutomationTest;
 import com.cloudtestapi.test.models.CancelTestRequest;
 import com.cloudtestapi.test.models.GetTestDevicesRequest;
 import com.cloudtestapi.test.models.GetTestDevicesResponse;
+import com.cloudtestapi.test.models.GetTestStatusRequest;
+import com.cloudtestapi.test.models.GetTestStatusResponse;
 import com.cloudtestapi.test.models.StartAutomationTestRequest;
 import com.cloudtestapi.test.models.StartTestResponse;
 import com.cloudtestapi.test.models.TestDevice;
 import com.cloudtestapi.test.models.TestInfo;
+import com.cloudtestapi.test.models.TestStatus;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -92,5 +95,27 @@ public class TestClient extends AbstractClient {
 
     }
 
+    /**
+     * 获取测试状态
+     *
+     * @param testId 测试ID
+     * @return TestStatus 测试状态
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public TestStatus getTestStatus(Long testId) throws CloudTestSDKException {
+        GetTestStatusRequest request = new GetTestStatusRequest();
+        request.setTestId(testId);
+        GetTestStatusResponse rsp = null;
+        String rspStr = "";
+        try {
+            Type type = new TypeToken<GetTestStatusResponse>() {
+            }.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.testStatus;
+    }
 
 }
