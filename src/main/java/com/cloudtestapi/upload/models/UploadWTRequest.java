@@ -2,7 +2,6 @@ package com.cloudtestapi.upload.models;
 
 import com.cloudtestapi.common.AbstractRequest;
 import com.cloudtestapi.common.profile.HttpProfile;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class UploadWTRequest extends AbstractRequest {
@@ -19,8 +18,8 @@ public class UploadWTRequest extends AbstractRequest {
     }
 
     @Override
-    protected String toJsonBody() {
-        return new String(body, StandardCharsets.UTF_8);
+    protected byte[] toBody() {
+        return body;
     }
 
     @Override

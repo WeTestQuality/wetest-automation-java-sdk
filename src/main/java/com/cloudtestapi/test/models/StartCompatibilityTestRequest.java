@@ -2,14 +2,14 @@ package com.cloudtestapi.test.models;
 
 import com.cloudtestapi.common.AbstractRequest;
 import com.cloudtestapi.common.profile.HttpProfile;
-import com.cloudtestapi.test.models.CompatibilityTest;
 import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class StartCompatibilityTestRequest extends AbstractRequest {
+
     private CompatibilityTest test;
 
-    public StartCompatibilityTestRequest(){
+    public StartCompatibilityTestRequest() {
         this.setHttpMethod(HttpProfile.REQ_POST);
         this.withApiInfo("v1", "/tests/compatibility");
     }
@@ -23,9 +23,9 @@ public class StartCompatibilityTestRequest extends AbstractRequest {
     }
 
     @Override
-    protected String toJsonBody() {
+    protected byte[] toBody() {
         Gson gson = new Gson();
-        return gson.toJson(test);
+        return gson.toJson(test).getBytes();
     }
 
     @Override

@@ -31,7 +31,7 @@ public abstract class AbstractRequest {
 
     private String httpMethod = "POST";
 
-    protected abstract String toJsonBody();
+    protected abstract byte[] toBody();
 
     protected abstract void toQueryParamMap(HashMap<String, Object> map, String prefix);
 

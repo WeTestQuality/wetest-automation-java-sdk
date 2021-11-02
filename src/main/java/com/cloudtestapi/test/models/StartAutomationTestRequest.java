@@ -6,17 +6,18 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class StartAutomationTestRequest extends AbstractRequest {
+
     private AutomationTest test;
 
-    public StartAutomationTestRequest(){
+    public StartAutomationTestRequest() {
         this.setHttpMethod(HttpProfile.REQ_POST);
         this.withApiInfo("v1", "/tests/automation");
     }
 
     @Override
-    protected String toJsonBody() {
+    protected byte[] toBody() {
         Gson gson = new Gson();
-        return gson.toJson(test);
+        return gson.toJson(test).getBytes();
     }
 
     @Override

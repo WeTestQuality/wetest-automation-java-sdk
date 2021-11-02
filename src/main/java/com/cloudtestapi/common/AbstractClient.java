@@ -145,19 +145,19 @@ public class AbstractClient {
                     uploadRequest.getFileName(), uploadRequest.getFileMime());
         }
 
-        String jsonStr = request.toJsonBody();
+        byte[] jsonStr = request.toBody();
         switch (reqMethod) {
             case HttpProfile.REQ_GET:
                 return conn.getRequest(url);
             case HttpProfile.REQ_POST:
                 // request object to json str
                 if (jsonStr == null) {
-                    jsonStr = gson.toJson(request);
+                    jsonStr = gson.toJson(request).getBytes();
                 }
                 return conn.postRequest(url, jsonStr);
             case HttpProfile.REQ_PUT:
                 if (jsonStr == null) {
-                    jsonStr = gson.toJson(request);
+                    jsonStr = gson.toJson(request).getBytes();
                 }
                 return conn.putRequest(url, jsonStr);
             case HttpProfile.REQ_DELETE:

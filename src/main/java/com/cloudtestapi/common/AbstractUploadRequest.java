@@ -1,8 +1,7 @@
 package com.cloudtestapi.common;
 
-import java.util.HashMap;
+public abstract class AbstractUploadRequest extends AbstractRequest {
 
-public abstract class AbstractUploadRequest extends AbstractRequest{
     private String fieldName;
 
     private String fileMime;
@@ -10,7 +9,7 @@ public abstract class AbstractUploadRequest extends AbstractRequest{
     private String fileName;
 
     @Override
-    protected String toJsonBody() {
+    protected byte[] toBody() {
         return null;
     }
 

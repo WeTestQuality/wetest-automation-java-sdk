@@ -6,17 +6,18 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class StartFunctionalTestRequest extends AbstractRequest {
+
     private FunctionalTest test;
 
-    public StartFunctionalTestRequest(){
+    public StartFunctionalTestRequest() {
         this.setHttpMethod(HttpProfile.REQ_POST);
         this.withApiInfo("v1", "/tests/functional");
     }
 
     @Override
-    protected String toJsonBody() {
+    protected byte[] toBody() {
         Gson gson = new Gson();
-        return gson.toJson(test);
+        return gson.toJson(test).getBytes();
     }
 
     @Override
