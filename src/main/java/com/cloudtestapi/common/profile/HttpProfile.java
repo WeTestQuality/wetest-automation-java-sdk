@@ -59,12 +59,12 @@ public class HttpProfile {
     /**
      * http proxy user name
      */
-    private String proxyUsername;
+    private String proxyUser;
 
     /**
      * http proxy password
      */
-    private String proxyPassword;
+    private String proxyPasswd;
 
 
     private String toolPath;
@@ -79,6 +79,10 @@ public class HttpProfile {
         this.connTimeout = HttpProfile.TM_MINUTE;
     }
 
+    public String getReqMethod() {
+        return this.reqMethod;
+    }
+
     /**
      * Set request method, GET or POST or PUT or DELETE
      *
@@ -88,6 +92,9 @@ public class HttpProfile {
         this.reqMethod = reqMethod;
     }
 
+    public int getReadTimeout() {
+        return this.readTimeout;
+    }
 
     /**
      * Set read timeout value.
@@ -96,6 +103,10 @@ public class HttpProfile {
      */
     public void setReadTimeout(int readTimeout) {
         this.readTimeout = readTimeout;
+    }
+
+    public int getWriteTimeout() {
+        return this.writeTimeout;
     }
 
     /**
@@ -107,6 +118,10 @@ public class HttpProfile {
         this.writeTimeout = writeTimeout;
     }
 
+    public int getConnTimeout() {
+        return this.connTimeout;
+    }
+
     /**
      * Set connect timeout value.
      *
@@ -114,6 +129,10 @@ public class HttpProfile {
      */
     public void setConnTimeout(int connTimeout) {
         this.connTimeout = connTimeout;
+    }
+
+    public String getProtocol() {
+        return this.protocol;
     }
 
     /**
@@ -125,34 +144,6 @@ public class HttpProfile {
         this.protocol = protocol;
     }
 
-    public String getReqMethod() {
-        return this.reqMethod;
-    }
-
-    public int getReadTimeout() {
-        return this.readTimeout;
-    }
-
-    public int getWriteTimeout() {
-        return this.writeTimeout;
-    }
-
-    public int getConnTimeout() {
-        return this.connTimeout;
-    }
-
-    public String getProtocol() {
-        return this.protocol;
-    }
-
-    public String getProxyHost() {
-        return proxyHost;
-    }
-
-    public void setProxyHost(String proxyHost) {
-        this.proxyHost = proxyHost;
-    }
-
     public int getProxyPort() {
         return proxyPort;
     }
@@ -161,20 +152,28 @@ public class HttpProfile {
         this.proxyPort = proxyPort;
     }
 
-    public String getProxyUsername() {
-        return proxyUsername;
+    public String getProxyUser() {
+        return proxyUser;
     }
 
-    public void setProxyUsername(String proxyUsername) {
-        this.proxyUsername = proxyUsername;
+    public void setProxyUser(String proxyUser) {
+        this.proxyUser = proxyUser;
     }
 
-    public String getProxyPassword() {
-        return proxyPassword;
+    public String getProxyPasswd() {
+        return proxyPasswd;
     }
 
-    public void setProxyPassword(String proxyPassword) {
-        this.proxyPassword = proxyPassword;
+    public void setProxyPasswd(String proxyPasswd) {
+        this.proxyPasswd = proxyPasswd;
+    }
+
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    public void setProxyHost(String proxyHost) {
+        this.proxyHost = proxyHost;
     }
 
     public String getRootDomain() {

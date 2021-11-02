@@ -243,21 +243,13 @@ public class AbstractClient {
     }
 
 
-    /**
-     * warm up, try to avoid unnecessary cost in the first request
-     */
     private void warmup() {
         try {
-            // it happens in SDK signature process.
-            // first invoke costs around 250 ms.
             Mac.getInstance("HmacSHA1");
             Mac.getInstance("HmacSHA256");
-            // it happens inside okhttp, but I think any https framework/package will do the same.
-            // first invoke costs around 150 ms.
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, null, null);
         } catch (Exception e) {
-            // ignore but print message to console
             e.printStackTrace();
         }
     }
