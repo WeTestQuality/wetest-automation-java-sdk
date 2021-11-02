@@ -39,7 +39,6 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -245,6 +244,12 @@ public class UploadClient extends AbstractClient {
             request.setUploadId(uploadInfo.uploadId);
             System.out.println("upload chunk id=" + (i + 1) + " chunk size=" + chunkSize);
             this.internalRequest(request);
+        }
+        try {
+            is.close();
+        } catch (IOException e) {
+            this.getLogger().info("close file err= " + e.getMessage());
+            // ignore
         }
     }
 
@@ -477,9 +482,9 @@ public class UploadClient extends AbstractClient {
         String fileName = f.getName();
         String md5;
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
             InputStream is = Files.newInputStream(Paths.get(filePath));
             md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(is);
+            is.close();
         } catch (Exception e) {
             throw new CloudTestSDKException(e.getMessage());
         }
@@ -513,7 +518,7 @@ public class UploadClient extends AbstractClient {
     }
 
     private WTUploadResult getWTUploadResult(WTUploadInfo uploadInfo) throws CloudTestSDKException {
-        GetUploadResultFromWTResponse rsp = null;
+        GetUploadResultFromWTResponse rsp;
         String rspStr = "";
         GetUploadResultFromWTRequest request = new GetUploadResultFromWTRequest();
         request.setId(uploadInfo.uploadId);
@@ -522,6 +527,9 @@ public class UploadClient extends AbstractClient {
             }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
+            if (rsp.uploadResult == null) {
+                rsp.uploadResult = new WTUploadResult();
+            }
             rsp.uploadResult.status = rsp.ret;
             return rsp.uploadResult;
         } catch (JsonSyntaxException e) {
