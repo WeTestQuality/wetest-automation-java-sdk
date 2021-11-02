@@ -62,7 +62,7 @@ public class UploadExample {
     void test_upload_apk_wetest() {
         Assertions.assertDoesNotThrow(() -> {
             WTApp app = this.client.upload.multiPartUploadApkToWT(
-                    "YOUR_APK_FILE_PATH", "YOUR_PROJECT_ID"
+                    "C:\\Users\\dafenghuang\\Desktop\\WeTestDemo.apk", "fzb-8459"
             );
             System.out.println(this.client.gson.toJson(app));
         });

@@ -68,7 +68,7 @@ public class HttpConnection {
         return this.doRequest(request);
     }
 
-    public Response postRequest(String url, String body) throws CloudTestSDKException {
+    public Response postRequest(String url, byte[] body) throws CloudTestSDKException {
         MediaType contentType = MediaType.parse("application/json");
         Request request = null;
         try {
@@ -80,34 +80,7 @@ public class HttpConnection {
         return this.doRequest(request);
     }
 
-    public Response postRequest(String url, Object body, Headers headers)
-            throws CloudTestSDKException {
-        MediaType contentType = MediaType.parse(headers.get("Content-Type"));
-        Request request = null;
-        try {
-            if (body instanceof String) {
-                request =
-                        new Request.Builder()
-                                .url(url)
-                                .post(RequestBody.create(contentType, (String) body))
-                                .headers(headers).build();
-            } else {
-                request =
-                        new Request.Builder()
-                                .url(url)
-                                .post(RequestBody.create(contentType, (byte[]) body))
-                                .headers(headers).build();
-            }
-
-        } catch (IllegalArgumentException e) {
-            throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
-        }
-
-        return this.doRequest(request);
-    }
-
-
-    public Response putRequest(String url, String body) throws CloudTestSDKException {
+    public Response putRequest(String url, byte[] body) throws CloudTestSDKException {
         MediaType contentType = MediaType.parse("application/json");
         Request request = null;
         try {
@@ -129,6 +102,24 @@ public class HttpConnection {
                     new Request.Builder()
                             .url(url)
                             .post(requestBody)
+                            .build();
+        } catch (IllegalArgumentException e) {
+            throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
+        }
+
+        return this.doRequest(request);
+    }
+
+    public Response postRequest(String url, byte[] body, Headers headers)
+            throws CloudTestSDKException {
+        MediaType contentType = MediaType.parse(headers.get("Content-Type"));
+        Request request = null;
+        try {
+            request =
+                    new Request.Builder()
+                            .url(url)
+                            .post(RequestBody.create(contentType, body))
+                            .headers(headers)
                             .build();
         } catch (IllegalArgumentException e) {
             throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());

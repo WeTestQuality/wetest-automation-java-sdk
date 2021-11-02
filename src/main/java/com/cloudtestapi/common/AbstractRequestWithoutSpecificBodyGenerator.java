@@ -3,7 +3,7 @@ package com.cloudtestapi.common;
 public abstract class AbstractRequestWithoutSpecificBodyGenerator extends AbstractRequest {
 
     @Override
-    protected String toJsonBody() {
+    protected byte[] toBody() {
         return null;
     }
 }

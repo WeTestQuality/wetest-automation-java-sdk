@@ -15,9 +15,9 @@ public class StartAutomationTestRequest extends AbstractRequest {
     }
 
     @Override
-    protected String toJsonBody() {
+    protected byte[] toBody() {
         Gson gson = new Gson();
-        return gson.toJson(test);
+        return gson.toJson(test).getBytes();
     }
 
     @Override

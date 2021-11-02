@@ -9,7 +9,7 @@ public abstract class AbstractUploadRequest extends AbstractRequest {
     private String fileName;
 
     @Override
-    protected String toJsonBody() {
+    protected byte[] toBody() {
         return null;
     }
 
