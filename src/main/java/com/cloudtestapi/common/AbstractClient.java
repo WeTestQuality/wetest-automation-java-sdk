@@ -195,8 +195,8 @@ public class AbstractClient {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(host, port));
         conn.setProxy(proxy);
 
-        final String username = this.profile.getHttpProfile().getProxyUsername();
-        final String password = this.profile.getHttpProfile().getProxyPassword();
+        final String username = this.profile.getHttpProfile().getProxyUser();
+        final String password = this.profile.getHttpProfile().getProxyPasswd();
         if (username == null || username.isEmpty()) {
             return;
         }
