@@ -46,7 +46,7 @@ public class TestExample {
         test.setDevices(new int[]{6});
         test.setExtraScripts(null);
         test.setExtraInfo("fail");
-        test.setFrameType("wechat_init");
+        test.setFrameType("uitest");
         test.setHasVideo(false);
         test.setLogin("customized");
         test.setMaxTestRunTime(600);
