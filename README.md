@@ -3,6 +3,13 @@
 Java 8 + 
 ## Demo
 ```
+import com.cloudtestapi.CTClient;
+import com.cloudtestapi.common.Credential;
+import com.cloudtestapi.common.exception.CloudTestSDKException;
+import com.cloudtestapi.common.profile.ClientProfile;
+import com.cloudtestapi.common.profile.HttpProfile;
+import com.cloudtestapi.device.models.GetDevicesResponse;
+
 // Instantiate http option
 HttpProfile httpProfile = new HttpProfile();
 httpProfile.setRootDomain(System.getenv("CT_API_DOMAIN"));
