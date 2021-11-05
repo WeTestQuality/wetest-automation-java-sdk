@@ -227,7 +227,7 @@ public class UploadClient extends AbstractClient {
         for (int i = 0; i < uploadInfo.chunkNum; i++) {
             byte[] chunk;
             int chunkSize = 0;
-            // 最后一次特殊处理
+            // special process for the last chunk
             if (i == uploadInfo.chunkNum - 1) {
                 chunk = new byte[(int) (uploadInfo.size - uploadInfo.chunkSize * i)];
             } else {
@@ -265,7 +265,7 @@ public class UploadClient extends AbstractClient {
         for (int i = 0; i < uploadInfo.chunkNumber; i++) {
             byte[] chunk;
             int chunkSize = 0;
-            // 最后一次特殊处理
+            // special process for the last chunk
             if (i == uploadInfo.chunkNumber - 1) {
                 chunk = new byte[(int) (uploadInfo.fileSize - uploadInfo.chunkSize * i)];
             } else {

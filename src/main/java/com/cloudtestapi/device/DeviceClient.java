@@ -120,6 +120,7 @@ public class DeviceClient extends AbstractClient {
     /**
      * Get device model list
      *
+     * @param projectId project id
      * @return ModelList device model list
      * @throws CloudTestSDKException CloudTestSDKException
      */

@@ -96,10 +96,10 @@ public class TestClient extends AbstractClient {
     }
 
     /**
-     * 获取测试状态
+     * get test status
      *
-     * @param testId 测试ID
-     * @return TestStatus 测试状态
+     * @param testId test id
+     * @return TestStatus test status
      * @throws CloudTestSDKException CloudTestSDKException
      */
     public TestStatus getTestStatus(Long testId) throws CloudTestSDKException {
