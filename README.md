@@ -1,7 +1,13 @@
 # WeTest Automation Java SDK
 ## Prepare
 Java 8 + 
+
+## Credential
+- Get a pair of secret id and secret key from [WeTest](https://console.wetest.net/account/base)
+- See: Account Settings -> Developer Account 
+
 ## Demo
+- current CT_API_DOMAIN=api.tool.wetest.net
 ```
 import com.cloudtestapi.CTClient;
 import com.cloudtestapi.common.Credential;
@@ -14,7 +20,7 @@ import com.cloudtestapi.device.models.GetDevicesResponse;
 HttpProfile httpProfile = new HttpProfile();
 httpProfile.setRootDomain(System.getenv("CT_API_DOMAIN"));
 httpProfile.setToolPath("cloudtest");
-httpProfile.setProtocol(HttpProfile.REQ_HTTP);
+httpProfile.setProtocol(HttpProfile.REQ_HTTPS);
 
 // Instantiate client profile, for now, only SIGN_SHA256 signature supported
 ClientProfile profile = new ClientProfile(ClientProfile.SIGN_SHA256, httpProfile);
