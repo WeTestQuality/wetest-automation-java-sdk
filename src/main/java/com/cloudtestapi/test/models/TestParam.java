@@ -74,6 +74,10 @@ public class TestParam {
     public String project;
 
     @Expose
+    @SerializedName("cloud_id")
+    public int cloudId;
+
+    @Expose
     @SerializedName("device_groups")
     public String[] deviceGroups;
 
@@ -252,5 +256,12 @@ public class TestParam {
 
     public void setAppHashId(String appHashId) {
         this.appHashId = appHashId;
+    }
+    public int getCloudId() {
+        return this.cloudId;
+    }
+
+    public void setCloudId(int cloudId) {
+        this.cloudId = cloudId;
     }
 }

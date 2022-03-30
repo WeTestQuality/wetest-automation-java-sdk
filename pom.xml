@@ -6,7 +6,7 @@
     <groupId>io.github.wetestquality</groupId>
     <artifactId>ctapijava</artifactId>
     <!-->11.xx.xx version is i18n version<-->
-    <version>11.0.12</version>
+    <version>11.0.16</version>
     <build>
         <plugins>
             <plugin>
