@@ -89,6 +89,9 @@ public class TestParam {
     @SerializedName("order_account_type")
     public String orderAccountType;
 
+    @SerializedName("resign")
+    @Expose
+    public boolean resign;
 
     public String[][] getAccounts() {
         return accounts;
@@ -263,5 +266,12 @@ public class TestParam {
 
     public void setCloudId(int cloudId) {
         this.cloudId = cloudId;
+    }
+    public boolean isResign() {
+        return resign;
+    }
+
+    public void setResign(boolean resign) {
+        this.resign = resign;
     }
 }

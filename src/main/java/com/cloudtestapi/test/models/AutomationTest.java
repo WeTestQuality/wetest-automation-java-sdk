@@ -13,12 +13,6 @@ public class AutomationTest extends TestParam {
     @Expose
     public int maxCaseRuntime;
 
-
-
-    @SerializedName("resign")
-    @Expose
-    public boolean resign;
-
     public String getParserType() {
         return parserType;
     }
@@ -34,11 +28,5 @@ public class AutomationTest extends TestParam {
     public void setMaxCaseRuntime(int maxCaseRuntime) {
         this.maxCaseRuntime = maxCaseRuntime;
     }
-    public boolean isResign() {
-        return resign;
-    }
 
-    public void setResign(boolean resign) {
-        this.resign = resign;
-    }
 }
