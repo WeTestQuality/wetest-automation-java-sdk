@@ -199,4 +199,47 @@ public class TestClient extends AbstractClient {
         return rsp;
     }
 
+    /**
+     * start functional test
+     * @param test FunctionalTest
+     * @return TestInfo
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public TestInfo startFunctionalTest(FunctionalTest test) throws CloudTestSDKException{
+        StartFunctionalTestRequest request = new StartFunctionalTestRequest();
+        request.setTest(test);
+        StartTestResponse rsp = null;
+        String rspStr = "";
+        try{
+            Type type = new TypeToken<StartTestResponse>(){}.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        }catch (JsonSyntaxException e){
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.testInfo;
+    }
+
+    /**
+     * StartCompatibilityTestRequest
+     * @param test  CompatibilityTest
+     * @return TestInfo
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public TestInfo startCompatibilityTest(CompatibilityTest test) throws CloudTestSDKException{
+        StartCompatibilityTestRequest request = new StartCompatibilityTestRequest();
+        request.setTest(test);
+        StartTestResponse rsp = null;
+        String rspStr = "";
+        try{
+            Type type = new TypeToken<StartTestResponse>(){}.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        }catch (JsonSyntaxException e){
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.testInfo;
+    }
+
+
 }
