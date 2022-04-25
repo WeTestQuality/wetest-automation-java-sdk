@@ -1,8 +1,6 @@
 package com.cloudtestapi.account;
 
-import com.cloudtestapi.account.models.GetUserProjectRequest;
-import com.cloudtestapi.account.models.GetUserProjectResponse;
-import com.cloudtestapi.account.models.Project;
+import com.cloudtestapi.account.models.*;
 import com.cloudtestapi.common.AbstractClient;
 import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
@@ -41,5 +39,44 @@ public class AccountClient extends AbstractClient {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.projects;
+    }
+
+    public Project getProjectByName(String projectName) throws CloudTestSDKException {
+        Project[] projects = this.getProjects();
+        for (Project p:
+                projects
+        ) {
+            if (p.projectName.equals(projectName)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public Cloud[] getClouds() throws CloudTestSDKException {
+        GetUserCloudsRequest request = new GetUserCloudsRequest();
+        GetUserCloudsResponse rsp;
+        String rspStr = "";
+        try {
+            Type type = new TypeToken<GetUserCloudsResponse>() {
+            }.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.clouds;
+    }
+
+    public Cloud getCloudByName(String cloudName) throws CloudTestSDKException {
+        Cloud[] clouds = this.getClouds();
+        for (Cloud c:
+                clouds
+             ) {
+            if (c.cloudName.equals(cloudName)) {
+                return c;
+            }
+        }
+        return null;
     }
 }

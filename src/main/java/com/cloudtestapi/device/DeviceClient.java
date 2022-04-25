@@ -1,5 +1,6 @@
 package com.cloudtestapi.device;
 
+import com.cloudtestapi.account.models.Project;
 import com.cloudtestapi.common.AbstractClient;
 import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.JsonResponseModel;
@@ -16,6 +17,9 @@ import com.cloudtestapi.device.models.ReportDeviceOfflineRequest;
 import com.cloudtestapi.device.models.SoftRebootDeviceRequest;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.codec.binary.StringUtils;
+
+import java.io.IOException;
 import java.lang.reflect.Type;
 
 
@@ -139,4 +143,12 @@ public class DeviceClient extends AbstractClient {
         return rsp.data;
     }
 
+    public Process wdbConnect(String address, String token) throws IOException {
+        String[] cmd = {"wdb","connect", address, "--token", token};
+        if(token == null) {
+            cmd = new String[]{"wdb","connect", address};
+        }
+        Process process =  Runtime.getRuntime().exec(cmd);
+        return process;
+    }
 }

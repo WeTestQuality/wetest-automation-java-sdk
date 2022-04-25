@@ -58,7 +58,6 @@ public class AbstractClient {
             throw new CloudTestSDKException(
                     "Signature method " + sm + " is invalid or not supported yet.");
         }
-
         return parseErrorFromResponse(okRsp);
     }
 
@@ -84,6 +83,7 @@ public class AbstractClient {
         try {
             Type errType = new TypeToken<JsonResponseErrModel>() {
             }.getType();
+            System.out.println(respBody);
             errResp = gson.fromJson(respBody, errType);
         } catch (JsonSyntaxException e) {
             String msg = "json is not a valid representation for an object of type";
@@ -112,7 +112,6 @@ public class AbstractClient {
             }
             path = path.replaceAll(entry.getKey(), entry.getValue());
         }
-
         // request object -> query param map<string, string[]>
         HashMap<String, Object> queryMap = new HashMap<>();
         request.toQueryParamMap(queryMap, "");

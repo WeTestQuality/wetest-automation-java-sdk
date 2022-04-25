@@ -4,19 +4,10 @@ import com.cloudtestapi.common.AbstractClient;
 import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
-import com.cloudtestapi.test.models.AutomationTest;
-import com.cloudtestapi.test.models.CancelTestRequest;
-import com.cloudtestapi.test.models.GetTestDevicesRequest;
-import com.cloudtestapi.test.models.GetTestDevicesResponse;
-import com.cloudtestapi.test.models.GetTestStatusRequest;
-import com.cloudtestapi.test.models.GetTestStatusResponse;
-import com.cloudtestapi.test.models.StartAutomationTestRequest;
-import com.cloudtestapi.test.models.StartTestResponse;
-import com.cloudtestapi.test.models.TestDevice;
-import com.cloudtestapi.test.models.TestInfo;
-import com.cloudtestapi.test.models.TestStatus;
+import com.cloudtestapi.test.models.*;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 
 public class TestClient extends AbstractClient {
@@ -50,6 +41,39 @@ public class TestClient extends AbstractClient {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.testInfo;
+    }
+
+    public DebugTestInfo startDebugTest(Integer deviceId, String projectKey) throws CloudTestSDKException {
+        StartDebugTestResponse rsp = null;
+        String rspStr = "";
+        StartDebugTestRequest request = new StartDebugTestRequest()
+                .setDeviceId(deviceId)
+                .setProject(projectKey);
+        try {
+            Type type = new TypeToken<StartDebugTestResponse>() {
+            }.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.debugTestInfo;
+    }
+
+    public void startRemoteDebugConnect(Long testId, int deviceId) throws CloudTestSDKException {
+        StartDebugResponse rsp = null;
+        String rspStr = "";
+        StartDebugRequest request = new StartDebugRequest();
+        request.setTestId(testId);
+        request.setDeviceId(deviceId);
+        try {
+            Type type = new TypeToken<StartDebugResponse>() {
+            }.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
     }
 
     /**
@@ -116,6 +140,62 @@ public class TestClient extends AbstractClient {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
         return rsp.testStatus;
+    }
+
+
+    public GetDebugStatusResponse getDebugStatus(Long testId, Integer deviceId) throws CloudTestSDKException {
+        GetDebugStatusRequest request = new GetDebugStatusRequest();
+        request.setTestId(testId);
+        request.setDeviceId(deviceId);
+        GetDebugStatusResponse rsp = null;
+        String rspStr = "";
+        try {
+            Type type = new TypeToken<GetDebugStatusResponse>() {
+            }.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp;
+    }
+
+    public InstallAppResponse installApp(Long testId, Integer deviceId, Integer appId, Boolean resign) throws CloudTestSDKException {
+        InstallAppRequest request = new InstallAppRequest();
+        request.setTestId(testId);
+        request.setDeviceId(deviceId);
+        request.setAppId(appId);
+        request.setResign(resign);
+        InstallAppResponse rsp = null;
+        String rspStr = "";
+        try {
+            Type type = new TypeToken<InstallAppResponse>() {
+            }.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp;
+    }
+
+    public GetInstallProcessResponse getInstallProcess(Long testId, Integer deviceId, Integer installId)
+            throws CloudTestSDKException {
+        GetInstallProcessRequest request = new GetInstallProcessRequest();
+        request.setTestId(testId);
+        request.setDeviceId(deviceId);
+        request.setInstallId(installId);
+        GetInstallProcessResponse rsp = null;
+        String rspStr = "";
+        try {
+            Type type = new TypeToken<GetInstallProcessResponse>() {
+            }.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp;
     }
 
 }

@@ -88,8 +88,9 @@ public class HttpProfile {
      *
      * @param reqMethod GET or POST or PUT or DELETE
      */
-    public void setReqMethod(String reqMethod) {
+    public HttpProfile setReqMethod(String reqMethod) {
         this.reqMethod = reqMethod;
+        return this;
     }
 
     public int getReadTimeout() {
@@ -101,8 +102,9 @@ public class HttpProfile {
      *
      * @param readTimeout A integer represents time in seconds.
      */
-    public void setReadTimeout(int readTimeout) {
+    public HttpProfile setReadTimeout(int readTimeout) {
         this.readTimeout = readTimeout;
+        return this;
     }
 
     public int getWriteTimeout() {
@@ -114,8 +116,9 @@ public class HttpProfile {
      *
      * @param writeTimeout A integer represents time in seconds.
      */
-    public void setWriteTimeout(int writeTimeout) {
+    public HttpProfile setWriteTimeout(int writeTimeout) {
         this.writeTimeout = writeTimeout;
+        return this;
     }
 
     public int getConnTimeout() {
@@ -127,8 +130,9 @@ public class HttpProfile {
      *
      * @param connTimeout A integer represents time in seconds.
      */
-    public void setConnTimeout(int connTimeout) {
+    public HttpProfile setConnTimeout(int connTimeout) {
         this.connTimeout = connTimeout;
+        return this;
     }
 
     public String getProtocol() {
@@ -140,55 +144,62 @@ public class HttpProfile {
      *
      * @param protocol https:// or http://
      */
-    public void setProtocol(String protocol) {
+    public HttpProfile setProtocol(String protocol) {
         this.protocol = protocol;
+        return this;
     }
 
     public int getProxyPort() {
         return proxyPort;
     }
 
-    public void setProxyPort(int proxyPort) {
+    public HttpProfile setProxyPort(int proxyPort) {
         this.proxyPort = proxyPort;
+        return this;
     }
 
     public String getProxyUser() {
         return proxyUser;
     }
 
-    public void setProxyUser(String proxyUser) {
+    public HttpProfile setProxyUser(String proxyUser) {
         this.proxyUser = proxyUser;
+        return this;
     }
 
     public String getProxyPasswd() {
         return proxyPasswd;
     }
 
-    public void setProxyPasswd(String proxyPasswd) {
+    public HttpProfile setProxyPasswd(String proxyPasswd) {
         this.proxyPasswd = proxyPasswd;
+        return this;
     }
 
     public String getProxyHost() {
         return proxyHost;
     }
 
-    public void setProxyHost(String proxyHost) {
+    public HttpProfile setProxyHost(String proxyHost) {
         this.proxyHost = proxyHost;
+        return this;
     }
 
     public String getRootDomain() {
         return rootDomain;
     }
 
-    public void setRootDomain(String rootDomain) {
+    public HttpProfile setRootDomain(String rootDomain) {
         this.rootDomain = rootDomain;
+        return this;
     }
 
     public String getToolPath() {
         return toolPath;
     }
 
-    public void setToolPath(String toolPath) {
+    public HttpProfile setToolPath(String toolPath) {
         this.toolPath = toolPath;
+        return this;
     }
 }

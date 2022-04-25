@@ -36,12 +36,14 @@ public class ClientProfile {
         this(ClientProfile.SIGN_SHA256, new HttpProfile());
     }
 
-    public void setSignMethod(String signMethod) {
+    public ClientProfile setSignMethod(String signMethod) {
         this.signMethod = signMethod;
+        return this;
     }
 
-    public void setHttpProfile(HttpProfile httpProfile) {
+    public ClientProfile setHttpProfile(HttpProfile httpProfile) {
         this.httpProfile = httpProfile;
+        return this;
     }
 
     public String getSignMethod() {
@@ -56,7 +58,8 @@ public class ClientProfile {
         return debug;
     }
 
-    public void setDebug(boolean debug) {
+    public ClientProfile setDebug(boolean debug) {
         this.debug = debug;
+        return this;
     }
 }

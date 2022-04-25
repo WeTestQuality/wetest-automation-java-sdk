@@ -42,6 +42,10 @@ public class DeviceBasicInfo {
     public String location;
 
     @Expose
+    @SerializedName("device_name")
+    public String deviceName;
+
+    @Expose
     public String resolution;
 
     @Expose
