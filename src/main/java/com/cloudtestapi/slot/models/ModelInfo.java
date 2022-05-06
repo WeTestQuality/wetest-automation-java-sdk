@@ -36,4 +36,8 @@ public class ModelInfo {
     @Expose
     @SerializedName("rom_total")
     public int romTotal;
+
+    @Expose
+    @SerializedName("form_factor_type")
+    public int formFactorType;
 }

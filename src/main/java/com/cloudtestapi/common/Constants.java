@@ -1,5 +1,7 @@
 package com.cloudtestapi.common;
 
+import net.lingala.zip4j.crypto.IEncrypter;
+
 public class Constants {
 
     public enum OrderAccountType {
@@ -66,5 +68,19 @@ public class Constants {
         public static final Integer SUCCESS = 1;
         public static final Integer FAILED = 2;
         public static final Integer EXPIRED = 3;
+    }
+
+    public static class FormFactorType {
+        public static final Integer PHONE = 0;
+        public static final Integer TABLET = 1;
+        public static final Integer PC = 2;
+        public static final Integer Laptop = 3;
+    }
+
+    public static class SlotState {
+        public static final Integer UNASSIGNED = 0;
+        public static final Integer ASSIGNING = 1;
+        public static final Integer SUCCESS = 2;
+        public static final Integer FAILED = 3;
     }
 }
