@@ -66,4 +66,16 @@ public class DeviceBasicInfo {
     @Expose
     @SerializedName("device_state_code")
     public int deviceStateCode;
+
+    @Expose
+    @SerializedName("form_factor_type")
+    public int formFactorType;
+
+    @Expose
+    @SerializedName("phone_type_code")
+    public int phoneTypeCode;
+
+    @Expose
+    @SerializedName("phone_type")
+    public String phoneType;
 }

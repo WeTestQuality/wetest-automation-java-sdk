@@ -83,4 +83,12 @@ public class Constants {
         public static final Integer SUCCESS = 2;
         public static final Integer FAILED = 3;
     }
+
+    public static class PhoneTypeCode {
+        public static final Integer ANDROID = 0;
+        public static final Integer IOS = 1;
+        public static final Integer CustomizedAndroid = 2;
+        public static final Integer HarmonyOS = 3;
+        public static final Integer EmulatorAndroid = 4;
+    }
 }

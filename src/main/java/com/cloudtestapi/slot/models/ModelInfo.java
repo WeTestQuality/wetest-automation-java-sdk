@@ -18,8 +18,12 @@ public class ModelInfo {
     public String resolution;
 
     @Expose
+    @SerializedName("phone_type_code")
+    public int phoneTypeCode;
+
+    @Expose
     @SerializedName("phone_type")
-    public int phoneType;
+    public String phoneType;
 
     @Expose
     @SerializedName("cpu_arch")
