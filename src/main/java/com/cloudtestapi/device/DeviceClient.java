@@ -20,10 +20,13 @@ import com.google.gson.reflect.TypeToken;
 import org.apache.commons.codec.binary.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 
 public class DeviceClient extends AbstractClient {
+    private String wdbPath = "wdb";
 
     public DeviceClient(Credential credential) {
         this(credential, new ClientProfile());
@@ -143,12 +146,29 @@ public class DeviceClient extends AbstractClient {
         return rsp.data;
     }
 
-    public Process wdbConnect(String address, String token) throws IOException {
-        String[] cmd = {"wdb","connect", address, "--token", token};
-        if(token == null) {
-            cmd = new String[]{"wdb","connect", address};
+    public String wdbConnect(String address,String token ,int timeOut) throws IOException, InterruptedException,CloudTestSDKException {
+        String  cmd = String.format("%s connect %s -t=%s",this.wdbPath , address, token);
+        Process p = Runtime.getRuntime().exec(cmd);
+        boolean res = p.waitFor(timeOut, TimeUnit.SECONDS);
+        if(!res) {
+            throw  new CloudTestSDKException("wdb connect timeout");
         }
-        Process process =  Runtime.getRuntime().exec(cmd);
-        return process;
+        InputStream inputStream = p.getInputStream();
+        byte[] data = new byte[1024];
+        StringBuilder result = new StringBuilder();
+        while(inputStream.read(data) != -1) {
+            result.append(new String(data));
+        }
+        if (result.toString().equals("")) {
+            InputStream errorStream = p.getErrorStream();
+            while(errorStream.read(data) != -1) {
+                result.append(new String(data));
+            }
+        }
+        return result.toString();
+    }
+
+    public void setWdbPath(String path) {
+        this.wdbPath = path;
     }
 }

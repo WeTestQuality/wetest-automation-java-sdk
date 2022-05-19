@@ -60,20 +60,21 @@ public class TestClient extends AbstractClient {
         return rsp.debugTestInfo;
     }
 
-    public void startRemoteDebugConnect(Long testId, int deviceId) throws CloudTestSDKException {
-        StartDebugResponse rsp = null;
+    public StartDebugConnectResponse startRemoteDebugConnect(Long testId, int deviceId) throws CloudTestSDKException {
+        StartDebugConnectResponse rsp = null;
         String rspStr = "";
-        StartDebugRequest request = new StartDebugRequest();
+        StartDebugConnectRequest request = new StartDebugConnectRequest();
         request.setTestId(testId);
         request.setDeviceId(deviceId);
         try {
-            Type type = new TypeToken<StartDebugResponse>() {
+            Type type = new TypeToken<StartDebugConnectResponse>() {
             }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
         } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
+        return rsp;
     }
 
     /**
