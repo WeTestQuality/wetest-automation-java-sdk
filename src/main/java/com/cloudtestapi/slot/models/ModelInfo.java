@@ -44,4 +44,8 @@ public class ModelInfo {
     @Expose
     @SerializedName("form_factor_type")
     public int formFactorType;
+
+    @Expose
+    @SerializedName("device_id")
+    public int deviceId;
 }
