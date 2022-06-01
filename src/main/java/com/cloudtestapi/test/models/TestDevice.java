@@ -15,11 +15,11 @@ public class TestDevice {
 
     @Expose
     @SerializedName("start_time")
-    public Long startTime;
+    public String startTime;
 
     @Expose
     @SerializedName("end_time")
-    public Long endTime;
+    public String endTime;
 
     @Expose
     @SerializedName("result_code")
