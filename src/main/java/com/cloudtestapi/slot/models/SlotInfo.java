@@ -12,6 +12,10 @@ public class SlotInfo {
     @Expose
     public int slotState;
 
+    @SerializedName("slot_token")
+    @Expose
+    public String slotToken;
+
     @SerializedName("model_info")
     @Expose
     public ModelInfo modelInfo;
