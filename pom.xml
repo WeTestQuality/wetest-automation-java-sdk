@@ -34,7 +34,7 @@
         <developerConnection>https://github.com/WeTestQuality/wetest-automation-java-sdk.git
         </developerConnection>
     </scm>
-    <version>11.0.24</version>
+    <version>11.0.25</version>
     <build>
         <plugins>
             <plugin>
