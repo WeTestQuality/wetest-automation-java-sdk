@@ -5,19 +5,9 @@ import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.JsonResponseModel;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
+import com.cloudtestapi.device.models.DeviceBasicInfo;
 import com.cloudtestapi.device.models.GetDeviceStateResponse;
-import com.cloudtestapi.slot.models.FetchResignResultRequest;
-import com.cloudtestapi.slot.models.ModelInfo;
-import com.cloudtestapi.slot.models.ResignIpaRequest;
-import com.cloudtestapi.slot.models.ResignIpaResponse;
-import com.cloudtestapi.slot.models.ResignResult;
-import com.cloudtestapi.slot.models.SlotInfo;
-import com.cloudtestapi.slot.models.SlotListInfoRequest;
-import com.cloudtestapi.slot.models.SlotListInfoResponse;
-import com.cloudtestapi.slot.models.SlotListModelRequest;
-import com.cloudtestapi.slot.models.SlotListModelResponse;
-import com.cloudtestapi.slot.models.SlotSwitchCancelRequest;
-import com.cloudtestapi.slot.models.SlotSwitchStartRequest;
+import com.cloudtestapi.slot.models.*;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -74,14 +64,37 @@ public class SlotClient extends AbstractClient {
     }
 
     /**
+     * Get a list of replaceable devices
+     * @param phoneTypeList
+     * @return DeviceBasicInfo[]
+     * @throws CloudTestSDKException CloudTestSDKException
+     */
+    public DeviceBasicInfo[] slotListDevice(int[] phoneTypeList) throws CloudTestSDKException{
+        JsonResponseModel<SlotListDeviceResponse> rsp = null;
+        SlotListDeviceRequest request = new SlotListDeviceRequest();
+        request.setPhoneTypeList(phoneTypeList);
+        String rspStr = "";
+        try{
+            Type type = new TypeToken<JsonResponseModel<SlotListDeviceResponse>>(){}.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        }catch (JsonSyntaxException e){
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.data.list;
+    }
+
+    /**
      * Applying to replace a slot-bound device
      * @param slotOutAddr
      * @param modelId
+     * @param deviceId
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public void slotSwitchStart(String slotOutAddr, int modelId) throws CloudTestSDKException{
+    public void slotSwitchStart(String slotOutAddr, int modelId, int deviceId) throws CloudTestSDKException{
         SlotSwitchStartRequest request = new SlotSwitchStartRequest();
         request.setModelId(modelId);
+        request.setDeviceId(deviceId);
         request.setSlotOutAddr(slotOutAddr);
         this.internalRequest(request);
     }

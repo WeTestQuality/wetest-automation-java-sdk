@@ -15,6 +15,10 @@ public class SlotSwitchStartRequest extends AbstractRequestWithoutSpecificBodyGe
     @Expose
     private int modelId;
 
+    @SerializedName("device_id")
+    @Expose
+    private int deviceId;
+
     public SlotSwitchStartRequest(){
         this.setHttpMethod(HttpProfile.REQ_POST);
         this.withApiInfo("v1", "/slot/switch/start");
@@ -43,5 +47,14 @@ public class SlotSwitchStartRequest extends AbstractRequestWithoutSpecificBodyGe
 
     public void setModelId(int modelId) {
         this.modelId = modelId;
+        this.deviceId = 0;
+    }
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
+        this.modelId = 0;
     }
 }
