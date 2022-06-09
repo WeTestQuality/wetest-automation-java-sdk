@@ -69,7 +69,7 @@ public class SlotClient extends AbstractClient {
      * @return DeviceBasicInfo[]
      * @throws CloudTestSDKException CloudTestSDKException
      */
-    public DeviceBasicInfo[] slotListDevice(int[] phoneTypeList) throws CloudTestSDKException{
+    public SlotDeviceInfo[] slotListDevice(int[] phoneTypeList) throws CloudTestSDKException{
         JsonResponseModel<SlotListDeviceResponse> rsp = null;
         SlotListDeviceRequest request = new SlotListDeviceRequest();
         request.setPhoneTypeList(phoneTypeList);

@@ -5,5 +5,5 @@ import com.google.gson.annotations.Expose;
 
 public class SlotListDeviceResponse {
     @Expose
-    public DeviceBasicInfo[] list;
+    public SlotDeviceInfo[] list;
 }

@@ -83,7 +83,6 @@ public class AbstractClient {
         try {
             Type errType = new TypeToken<JsonResponseErrModel>() {
             }.getType();
-            System.out.println(respBody);
             errResp = gson.fromJson(respBody, errType);
         } catch (JsonSyntaxException e) {
             String msg = "json is not a valid representation for an object of type";
