@@ -9,6 +9,14 @@ public class ModelInfo {
     public int modelId;
 
     @Expose
+    @SerializedName("model_name")
+    public String model;
+
+    @Expose
+    @SerializedName("model_alias")
+    public String modelAlias;
+
+    @Expose
     public String manu;
 
     @Expose
