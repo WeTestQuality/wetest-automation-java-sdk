@@ -56,4 +56,8 @@ public class ModelInfo {
     @Expose
     @SerializedName("device_id")
     public int deviceId;
+
+    @Expose
+    @SerializedName("device_name")
+    public String deviceName;
 }
