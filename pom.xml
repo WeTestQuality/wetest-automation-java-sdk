@@ -34,7 +34,7 @@
         <developerConnection>https://github.com/WeTestQuality/wetest-automation-java-sdk.git
         </developerConnection>
     </scm>
-    <version>11.0.30</version>
+    <version>11.1.1</version>
     <build>
         <plugins>
             <plugin>
@@ -106,9 +106,9 @@
             <version>2.2.4</version>
         </dependency>
         <dependency>
-            <groupId>com.squareup.okhttp</groupId>
+            <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>2.5.0</version>
+            <version>3.14.9</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>

@@ -7,10 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.Authenticator;
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -24,6 +20,8 @@ import java.util.Random;
 import java.util.TreeMap;
 import javax.crypto.Mac;
 import javax.net.ssl.SSLContext;
+
+import okhttp3.*;
 import org.apache.commons.logging.Log;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -201,18 +199,13 @@ public class AbstractClient {
         conn.setAuthenticator(
                 new Authenticator() {
                     @Override
-                    public Request authenticate(Proxy proxy, Response response) throws IOException {
+                    public Request authenticate(Route route, Response response) throws IOException {
                         String credential = Credentials.basic(username, password);
                         return response
                                 .request()
                                 .newBuilder()
                                 .header("Proxy-Authorization", credential)
                                 .build();
-                    }
-
-                    @Override
-                    public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
-                        return authenticate(proxy, response);
                     }
                 });
     }
