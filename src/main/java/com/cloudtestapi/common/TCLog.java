@@ -1,17 +1,13 @@
 package com.cloudtestapi.common;
 
-import java.io.IOException;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import okhttp3.Interceptor;
-import okhttp3.Interceptor.Chain;
+import java.io.IOException;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 class TCLog implements Interceptor {
 
@@ -59,7 +55,7 @@ class TCLog implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (debug) {
-            this.logger.info("send request, request url: " + request.urlString());
+            this.logger.info("send request, request url: " + request.url());
             this.logger.info("request header: " + request.headers().toString());
             this.logger.info("request body: " + gson.toJson(request.body()));
         }

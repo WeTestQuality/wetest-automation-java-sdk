@@ -1,11 +1,11 @@
 package com.cloudtestapi.common;
 
+import com.cloudtestapi.common.exception.CloudTestSDKException;
+import okhttp3.*;
+
 import java.io.IOException;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
-
-import com.cloudtestapi.common.exception.CloudTestSDKException;
-
 import okhttp3.Authenticator;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
@@ -17,13 +17,13 @@ import okhttp3.Response;
 
 public class HttpConnection {
 
-    private OkHttpClient client;
+    private OkHttpClient.Builder client;
 
     public HttpConnection(Integer connTimeout, Integer readTimeout, Integer writeTimeout) {
-        this.client = new OkHttpClient();
-        this.client.setConnectTimeout(connTimeout, TimeUnit.SECONDS);
-        this.client.setReadTimeout(readTimeout, TimeUnit.SECONDS);
-        this.client.setWriteTimeout(writeTimeout, TimeUnit.SECONDS);
+        this.client =  new OkHttpClient.Builder().
+                connectTimeout(connTimeout, TimeUnit.SECONDS).
+                readTimeout(readTimeout, TimeUnit.SECONDS).
+                writeTimeout(writeTimeout, TimeUnit.SECONDS);
     }
 
     public void addInterceptors(Interceptor interceptor) {
@@ -31,17 +31,17 @@ public class HttpConnection {
     }
 
     public void setProxy(Proxy proxy) {
-        this.client.setProxy(proxy);
+        this.client.proxy(proxy);
     }
 
     public void setAuthenticator(Authenticator authenticator) {
-        this.client.setAuthenticator(authenticator);
+        this.client.authenticator(authenticator);
     }
 
     public Response doRequest(Request request) throws CloudTestSDKException {
         Response response = null;
         try {
-            response = this.client.newCall(request).execute();
+            response = this.client.build().newCall(request).execute();
         } catch (IOException e) {
             throw new CloudTestSDKException(e.getClass().getName() + "-" + e.getMessage());
         }
@@ -96,9 +96,12 @@ public class HttpConnection {
             String fileName, String fileMime) throws CloudTestSDKException {
         Request request;
         try {
-            RequestBody requestBody = new MultipartBuilder().type(MultipartBuilder.FORM)
+
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MediaType.parse("multipart/form-data"))
                     .addFormDataPart(fieldName, fileName,
-                            RequestBody.create(MediaType.parse(fileMime), body)).build();
+                            RequestBody.create(MediaType.parse(fileMime), body))
+                    .build();
             request =
                     new Request.Builder()
                             .url(url)

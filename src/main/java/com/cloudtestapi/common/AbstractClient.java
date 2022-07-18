@@ -1,5 +1,13 @@
 package com.cloudtestapi.common;
 
+
+import com.cloudtestapi.common.exception.CloudTestSDKException;
+import com.cloudtestapi.common.profile.ClientProfile;
+import com.cloudtestapi.common.profile.HttpProfile;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -14,20 +22,11 @@ import java.util.TreeMap;
 
 import javax.crypto.Mac;
 import javax.net.ssl.SSLContext;
-
+import okhttp3.*;
 import org.apache.commons.logging.Log;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
-
-import com.cloudtestapi.common.exception.CloudTestSDKException;
-import com.cloudtestapi.common.profile.ClientProfile;
-import com.cloudtestapi.common.profile.HttpProfile;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-
 import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -172,11 +171,6 @@ public class AbstractClient {
         List<NameValuePair> parameters = new ArrayList<>();
         queryMap.forEach((key, value) -> {
                     parameters.add(new BasicNameValuePair(key, String.valueOf(value)));
-//                    if (values.length > 0) {
-//                        for (String value : values) {
-//                            parameters.add(new BasicNameValuePair(key, value));
-//                        }
-//                    }
                 }
         );
         return URLEncodedUtils.format(parameters, "utf-8");
@@ -204,18 +198,13 @@ public class AbstractClient {
         conn.setAuthenticator(
                 new Authenticator() {
                     @Override
-                    public Request authenticate(Proxy proxy, Response response) throws IOException {
+                    public Request authenticate(Route route, Response response) throws IOException {
                         String credential = Credentials.basic(username, password);
                         return response
                                 .request()
                                 .newBuilder()
                                 .header("Proxy-Authorization", credential)
                                 .build();
-                    }
-
-                    @Override
-                    public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
-                        return authenticate(proxy, response);
                     }
                 });
     }

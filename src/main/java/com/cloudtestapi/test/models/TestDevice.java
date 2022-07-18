@@ -15,11 +15,15 @@ public class TestDevice {
 
     @Expose
     @SerializedName("start_time")
-    public Long startTime;
+    public String startTime;
+
+    @Expose
+    @SerializedName("device_start_time")
+    public String deviceStartTime;
 
     @Expose
     @SerializedName("end_time")
-    public Long endTime;
+    public String endTime;
 
     @Expose
     @SerializedName("result_code")
@@ -45,6 +49,10 @@ public class TestDevice {
     @Expose
     @SerializedName("script_log_url")
     public String scriptLogUrl;
+
+    @Expose
+    @SerializedName("wait_time")
+    public int waitTime;
 
     @Expose
     public TestError[] errors;
