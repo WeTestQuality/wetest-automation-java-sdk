@@ -1,16 +1,5 @@
 package com.cloudtestapi.common;
 
-import com.cloudtestapi.common.exception.CloudTestSDKException;
-import com.cloudtestapi.common.profile.ClientProfile;
-import com.cloudtestapi.common.profile.HttpProfile;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.Authenticator;
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -22,12 +11,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
+
 import javax.crypto.Mac;
 import javax.net.ssl.SSLContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
+
+import com.cloudtestapi.common.exception.CloudTestSDKException;
+import com.cloudtestapi.common.profile.ClientProfile;
+import com.cloudtestapi.common.profile.HttpProfile;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
+import okhttp3.Authenticator;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class AbstractClient {
 

@@ -1,18 +1,19 @@
 package com.cloudtestapi.common;
 
-import com.cloudtestapi.common.exception.CloudTestSDKException;
-import com.squareup.okhttp.Authenticator;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
+
+import com.cloudtestapi.common.exception.CloudTestSDKException;
+
+import okhttp3.Authenticator;
+import okhttp3.Headers;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HttpConnection {
 

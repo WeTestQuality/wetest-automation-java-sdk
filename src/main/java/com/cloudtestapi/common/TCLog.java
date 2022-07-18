@@ -1,13 +1,17 @@
 package com.cloudtestapi.common;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import java.io.IOException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import okhttp3.Interceptor;
+import okhttp3.Interceptor.Chain;
+import okhttp3.Request;
+import okhttp3.Response;
 
 class TCLog implements Interceptor {
 
