@@ -93,6 +93,10 @@ public class TestParam {
     @Expose
     public boolean resign;
 
+    @Expose
+    @SerializedName("device_group_name")
+    public String deviceGroupName;
+
     public String[][] getAccounts() {
         return accounts;
     }
@@ -273,5 +277,13 @@ public class TestParam {
 
     public void setResign(boolean resign) {
         this.resign = resign;
+    }
+
+    public String getDeviceGroupName() {
+        return deviceGroupName;
+    }
+
+    public void setDeviceGroupName(String deviceGroupName) {
+        this.deviceGroupName = deviceGroupName;
     }
 }
