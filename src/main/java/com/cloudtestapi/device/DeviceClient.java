@@ -2,17 +2,24 @@ package com.cloudtestapi.device;
 
 import com.cloudtestapi.account.models.Project;
 import com.cloudtestapi.common.AbstractClient;
+import com.cloudtestapi.common.Constants;
 import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.JsonResponseModel;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.device.models.DeviceBasicInfo;
+import com.cloudtestapi.device.models.DeviceListInfo;
 import com.cloudtestapi.device.models.GetDeviceStateRequest;
 import com.cloudtestapi.device.models.GetDeviceStateResponse;
 import com.cloudtestapi.device.models.GetDevicesByCloudIdRequest;
 import com.cloudtestapi.device.models.GetDevicesResponse;
+import com.cloudtestapi.device.models.GetModelListInfoRequest;
 import com.cloudtestapi.device.models.GetModelListRequest;
+import com.cloudtestapi.device.models.GetProjectModelListRequest;
 import com.cloudtestapi.device.models.ModelList;
+import com.cloudtestapi.device.models.ModelListInfo;
+import com.cloudtestapi.device.models.ModelListInfoBase;
+import com.cloudtestapi.device.models.ProjectModelList;
 import com.cloudtestapi.device.models.ReportDeviceOfflineRequest;
 import com.cloudtestapi.device.models.SoftRebootDeviceRequest;
 import com.google.gson.JsonSyntaxException;
@@ -140,6 +147,52 @@ public class DeviceClient extends AbstractClient {
             }.getType();
             rspStr = this.internalRequest(request);
             rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.data;
+    }
+
+    /**
+     * Get device model list configured in web controller
+     * @param projectId
+     * @return
+     * @throws CloudTestSDKException
+     */
+    public ProjectModelList[] getProjectModelList(String projectId, Constants.ModelListFilterType filterType) throws CloudTestSDKException {
+        JsonResponseModel<ProjectModelList[]> rsp = null;
+        String rspStr = "";
+        try {
+            GetProjectModelListRequest request = new GetProjectModelListRequest();
+            request.setProjectId(projectId);
+            if (filterType != null) {
+                request.setFilterType(filterType.getCode());
+            }
+            Type type = new TypeToken<JsonResponseModel<ProjectModelList[]>>(){}.getType();
+            rspStr = this.internalRequest(request);
+            rsp = gson.fromJson(rspStr, type);
+        } catch (JsonSyntaxException e) {
+            throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
+        }
+        return rsp.data;
+    }
+
+    public <T extends ModelListInfoBase> T[] getProjectModelListInfo(Integer listId, Constants.ModelListFilterType filterType) throws CloudTestSDKException {
+        JsonResponseModel<T[]> rsp = null;
+        String rspStr = "";
+        try {
+            GetModelListInfoRequest request = new GetModelListInfoRequest();
+            request.setListId(listId);
+            rspStr = this.internalRequest(request);
+            if (Constants.ModelListFilterType.MODEL.equals(filterType)) {
+                Type type = new TypeToken<JsonResponseModel<ModelListInfo[]>>(){}.getType();
+                rsp = gson.fromJson(rspStr, type);
+            } else if (Constants.ModelListFilterType.DEVICE.equals(filterType)) {
+                Type type = new TypeToken<JsonResponseModel<DeviceListInfo[]>>(){}.getType();
+                rsp = gson.fromJson(rspStr, type);
+            } else {
+                throw new CloudTestSDKException("invalid filterType while querying model list info");
+            }
         } catch (JsonSyntaxException e) {
             throw new CloudTestSDKException("response message: " + rspStr + ".\n Error message: " + e.getMessage());
         }
