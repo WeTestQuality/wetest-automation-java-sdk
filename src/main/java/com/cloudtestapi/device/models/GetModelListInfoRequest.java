@@ -10,7 +10,7 @@ public class GetModelListInfoRequest extends AbstractRequestWithoutSpecificBodyG
 
     public GetModelListInfoRequest() {
         this.setHttpMethod(HttpProfile.REQ_GET);
-        this.withApiInfo("v1", "/model/list/:list_id/info");
+        this.withApiInfo("v1", "/model/list/:id/info");
     }
 
     @Override
@@ -20,7 +20,7 @@ public class GetModelListInfoRequest extends AbstractRequestWithoutSpecificBodyG
 
     @Override
     protected void toPathParamMap(HashMap<String, String> map, String prefix) {
-        map.put(":list_id", listId.toString());
+        map.put(":id", listId.toString());
     }
 
     public Integer getListId() {
