@@ -156,6 +156,7 @@ public class DeviceClient extends AbstractClient {
     /**
      * Get device model list configured in web controller
      * @param projectId
+     * @param filterType group by model or group by device，return all groups if filterType is null
      * @return
      * @throws CloudTestSDKException
      */
@@ -177,6 +178,16 @@ public class DeviceClient extends AbstractClient {
         return rsp.data;
     }
 
+    /**
+     * get model group info
+     * @param listId id of the model group
+     * @param filterType type of the model group, refer com.cloudtestapi.common.Constants.ModelListFilterType
+     * @param <T> result type, sub-class of ModelListInfoBase
+     * @return
+     *      list of ModelListInfo when filterType is MODEL
+     *      list of DeviceListInfo when filterType is DEVICE
+     * @throws CloudTestSDKException
+     */
     public <T extends ModelListInfoBase> T[] getProjectModelListInfo(Integer listId, Constants.ModelListFilterType filterType) throws CloudTestSDKException {
         JsonResponseModel<T[]> rsp = null;
         String rspStr = "";
