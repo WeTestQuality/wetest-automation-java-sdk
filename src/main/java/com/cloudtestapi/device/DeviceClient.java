@@ -156,16 +156,20 @@ public class DeviceClient extends AbstractClient {
     /**
      * Get device model list configured in web controller
      * @param projectId
+     * @param offset start from 1
+     * @param limit
      * @param filterType group by model or group by device，return all groups if filterType is null
      * @return
      * @throws CloudTestSDKException
      */
-    public ProjectModelList[] getProjectModelList(String projectId, Constants.ModelListFilterType filterType) throws CloudTestSDKException {
+    public ProjectModelList[] getProjectModelList(String projectId, Constants.ModelListFilterType filterType, Integer offset, Integer limit) throws CloudTestSDKException {
         JsonResponseModel<ProjectModelList[]> rsp = null;
         String rspStr = "";
         try {
             GetProjectModelListRequest request = new GetProjectModelListRequest();
             request.setProjectId(projectId);
+            request.setOffset(offset);
+            request.setLimit(limit);
             if (filterType != null) {
                 request.setFilterType(filterType.getCode());
             }

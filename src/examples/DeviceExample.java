@@ -67,7 +67,7 @@ public class DeviceExample {
     @Test
     void test_get_project_model_list() throws CloudTestSDKException {
         Assertions.assertDoesNotThrow(() -> {
-            ProjectModelList[] modelLists = this.client.device.getProjectModelList(System.getenv("PROJECT_ID"), null);
+            ProjectModelList[] modelLists = this.client.device.getProjectModelList(System.getenv("PROJECT_ID"), null, 1, 10);
             System.out.println(this.client.gson.toJson(modelLists));
         });
     }

@@ -9,6 +9,10 @@ public class GetProjectModelListRequest extends AbstractRequestWithoutSpecificBo
 
     private String projectId;
 
+    private Integer offset;
+
+    private Integer limit;
+
     private Integer filterType;
 
     public GetProjectModelListRequest() {
@@ -20,6 +24,8 @@ public class GetProjectModelListRequest extends AbstractRequestWithoutSpecificBo
     protected void toQueryParamMap(HashMap<String, Object> map, String prefix) {
         map.put("project", projectId);
         map.put("filtertype", filterType);
+        map.put("offset", offset);
+        map.put("limit", limit);
     }
 
     @Override
@@ -41,5 +47,27 @@ public class GetProjectModelListRequest extends AbstractRequestWithoutSpecificBo
 
     public void setFilterType(Integer filterType) {
         this.filterType = filterType;
+    }
+
+    public Integer getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        if (offset < 0) {
+            offset = 0;
+        }
+        this.offset = offset;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        if (limit < 0) {
+            limit = 0;
+        }
+        this.limit = limit;
     }
 }
