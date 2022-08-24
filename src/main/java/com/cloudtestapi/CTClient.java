@@ -6,6 +6,7 @@ import com.cloudtestapi.common.Credential;
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.device.DeviceClient;
+import com.cloudtestapi.health.HealthClient;
 import com.cloudtestapi.slot.SlotClient;
 import com.cloudtestapi.test.TestClient;
 import com.cloudtestapi.upload.UploadClient;
@@ -22,6 +23,8 @@ public class CTClient extends AbstractClient {
 
     public SlotClient slot;
 
+    public HealthClient health;
+
     public CTClient(Credential credential) throws CloudTestSDKException {
         this(credential, new ClientProfile());
     }
@@ -33,6 +36,7 @@ public class CTClient extends AbstractClient {
         this.test = new TestClient(credential, clientProfile);
         this.account = new AccountClient(credential, clientProfile);
         this.slot = new SlotClient(credential, clientProfile);
+        this.health = new HealthClient(credential, clientProfile);
         this.checkCredential(credential);
     }
 
