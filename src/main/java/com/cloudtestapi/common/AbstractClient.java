@@ -1,5 +1,6 @@
 package com.cloudtestapi.common;
 
+
 import com.cloudtestapi.common.exception.CloudTestSDKException;
 import com.cloudtestapi.common.profile.ClientProfile;
 import com.cloudtestapi.common.profile.HttpProfile;
@@ -7,10 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.Authenticator;
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -22,12 +19,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
+
 import javax.crypto.Mac;
 import javax.net.ssl.SSLContext;
+import okhttp3.*;
 import org.apache.commons.logging.Log;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
+import okhttp3.Authenticator;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class AbstractClient {
 
@@ -83,14 +85,13 @@ public class AbstractClient {
         try {
             Type errType = new TypeToken<JsonResponseErrModel>() {
             }.getType();
-            System.out.println(respBody);
             errResp = gson.fromJson(respBody, errType);
         } catch (JsonSyntaxException e) {
             String msg = "json is not a valid representation for an object of type";
             log.info(msg);
             throw new CloudTestSDKException(msg);
         }
-        if (errResp != null && errResp.code != 0 && errResp.code != 1) {
+        if (errResp != null && errResp.code != null && errResp.code != 0 && errResp.code != 1) {
             throw new CloudTestSDKException(
                     errResp.message + ";" + errResp.msg,
                     errResp.code,
@@ -170,11 +171,6 @@ public class AbstractClient {
         List<NameValuePair> parameters = new ArrayList<>();
         queryMap.forEach((key, value) -> {
                     parameters.add(new BasicNameValuePair(key, String.valueOf(value)));
-//                    if (values.length > 0) {
-//                        for (String value : values) {
-//                            parameters.add(new BasicNameValuePair(key, value));
-//                        }
-//                    }
                 }
         );
         return URLEncodedUtils.format(parameters, "utf-8");
@@ -202,18 +198,13 @@ public class AbstractClient {
         conn.setAuthenticator(
                 new Authenticator() {
                     @Override
-                    public Request authenticate(Proxy proxy, Response response) throws IOException {
+                    public Request authenticate(Route route, Response response) throws IOException {
                         String credential = Credentials.basic(username, password);
                         return response
                                 .request()
                                 .newBuilder()
                                 .header("Proxy-Authorization", credential)
                                 .build();
-                    }
-
-                    @Override
-                    public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
-                        return authenticate(proxy, response);
                     }
                 });
     }
